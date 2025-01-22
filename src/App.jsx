@@ -1,0 +1,98 @@
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Loading from "./pages/Loading";
+import Done from "./pages/Done";
+import PageLoading from "./pages/PageLoading";
+import CreateSquad from "./pages/CreateSquad";
+import AddMembers from "./pages/AddMembers";
+
+const CreateAvatar = lazy(() => import("./pages/CreateAvatar"));
+const Stats = lazy(() => import("./pages/Stats"));
+const Team = lazy(() => import("./pages/Team"));
+const Shop = lazy(() => import("./pages/Shop"));
+
+const App = () => {
+  const [viewingStats, setViewingStats] = useState(false);
+  const [viewingCart, setViewingCart] = useState(false);
+  const [viewingRegister, setViewingRegister] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [viewNavbar, setViewnavbar] = useState(true);
+  const [cardPage, setCardPage] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 7100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname === "/shop") {
+      setCardPage(true);
+    } else {
+      setCardPage(false);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname === "/register") {
+      setViewnavbar(false);
+    }
+    else{
+      setViewnavbar(true);
+    }
+  });
+
+  useEffect(() => {
+    if (location.pathname === "/createAvatar") {
+      setViewnavbar(false);
+    } else {
+      setViewnavbar(true);
+    }
+  }, [location.pathname]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  return (
+    <div className="m-0 p-0 box-border bg-[#101010]">
+      {viewNavbar && (
+        <Navbar
+          cardPage={cardPage}
+          setViewingCart={setViewingCart}
+          setViewingStats={setViewingStats}
+          viewingCart={viewingCart}
+          viewingStats={viewingStats}
+        />
+      )}
+      {viewNavbar && (
+        <div className="w-screen h-[1px] bg-white absolute top-[72px] z-20 opacity-45"></div>
+      )}
+      <Suspense fallback={<PageLoading />}>
+        <Routes>
+          <Route path="/" element={<Stats viewingStats={viewingStats} />} />
+          <Route path="/createAvatar" element={<CreateAvatar />} />
+          <Route
+            path="/avatarCreated"
+            element={<Done targetText={"YOUR AVATAR HAS BEEN CREATED"} />}
+          />
+          <Route path="/team" element={<Team />} />
+          <Route path="/register" element={<CreateSquad />} />
+          <Route path="/addMembers" element={<AddMembers />} />
+          <Route
+            path="/shop"
+            element={
+              <Shop viewingCart={viewingCart} setViewingcart={setViewingCart} />
+            }
+          />
+        </Routes>
+      </Suspense>
+    </div>
+  );
+};
+
+export default App;
