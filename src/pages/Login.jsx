@@ -8,36 +8,55 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  
 
   const navigate = useNavigate();
   let res;
   const handleDiveInClick = async () => {
     try {
-      res = await axios.post("https://api.mlsc.tech/user/login", {
+      const res = await axios.post("https://api.mlsc.tech/user/login", {
         username: username,
         password: password,
       });
+  
+      // Extract token and teamId from the response data
+      const token = res.data.data.userToken;  // Assuming this is how token is structured in the response
+      const teamId = res.data.data.user.teamId; // Assuming teamId is nested under `user`
+  
+      // Set token and teamId to localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("teamId", teamId);
+  
       console.log(res.data);
       console.log(res.data.data.user.avatar === null);
+  
       if (res.data.data.user.avatar === null) {
         console.log("No avatar");
-        navigate("/createAvatar", { state: { userId: res.data.data.user.id } });
-        setPopupMessage("No avatar found. Please create an avatar.");
+        setPopupMessage(
+          "No avatar found. Please create an avatar. Redirecting to avatar creation page."
+        );
         setShowPopup(true);
+        setTimeout(() => {
+          navigate("/createAvatar", {
+            state: { userId: res.data.data.user.id, token, teamId },  // Pass token and teamId to the next page
+          });
+        }, 2000);
       } else {
-        navigate("/", { state: { username } });
+        navigate("/", {
+          state: { username, token, teamId },  // Pass token and teamId here as well
+        });
       }
     } catch (error) {
-      console.log(error.response.data.message);
-      setPopupMessage(error.response.data.message);
+      console.log(error.response?.data?.message);
+      setPopupMessage(error.response?.data?.message || "An error occurred.");
       setShowPopup(true);
-      if (!error.response.data.status) {
+  
+      if (!error.response?.data?.status) {
         return;
       }
       console.error("Error sending data:", error);
     }
   };
+  
 
   return (
     <>
@@ -177,7 +196,9 @@ export default function Login() {
       {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-[#c0c0c0] p-10 rounded-lg shadow-lg text-center">
-            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">{popupMessage}</h3>
+            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">
+              {popupMessage}
+            </h3>
             <button
               className="bg-black text-white px-4 py-[2px] rounded-md"
               onClick={() => setShowPopup(false)}

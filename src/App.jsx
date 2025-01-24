@@ -7,6 +7,7 @@ import PageLoading from "./pages/PageLoading";
 import CreateSquad from "./pages/CreateSquad";
 import AddMembers from "./pages/AddMembers";
 import Login from "./pages/Login";
+import AdminLogin from "./pages/AdminLogin";
 
 
 const CreateAvatar = lazy(() => import("./pages/CreateAvatar"));
@@ -82,6 +83,7 @@ const App = () => {
           <Route path="/register" element={<CreateSquad />} />
           <Route path="/addMembers" element={<AddMembers />} />
           <Route path="/login" element={<Login/>}/>
+          <Route path="/adminLogin" element={<AdminLogin/>}/>
           <Route
             path="/shop"
             element={

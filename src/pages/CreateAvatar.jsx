@@ -1,20 +1,47 @@
 import { AvatarCreator } from "@readyplayerme/react-avatar-creator";
 import axios from "axios";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateAvatar = () => {
   const navigate = useNavigate();
- 
-  const created=async(avatar)=>{
-    await axios.post("https://api.mlsc.tech/team",{
-      avatar:avatar.data.url
-    }).then((res)=>{
-      console.log(res);
-    }).catch((err)=>{
-      console.log(err);
-    })
-  }
+
+  const {state}=useLocation();
+  const userId = state.userId;
+  const token = state.token;
+
+  console.log("User ID:", userId);
+
+  const created = async (avatar) => {
+    try {
+      const data = {
+        avatar: avatar.data.url, 
+      };
+
+      
+
+       console.log("Token:", token);
+      console.log("Sending payload:", data);
+
+      const response = await axios.patch(`https://precisely-sk-chains-adaptor.trycloudflare.com/user/${userId}`, data,{
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      console.log("Avatar saved successfully:", response.data);
+
+      setTimeout(() => {
+        navigate("/avatarCreated");
+      }, 3000);
+    } catch (err) {
+      if (err.response) {
+        console.error("Error response from server:", err.response.data);
+      } else {
+        console.error("Error sending request:", err.message);
+      }
+    }
+  };
 
   return (
     <div className="flex items-center justify-center flex-col bg-black">
@@ -25,14 +52,10 @@ const CreateAvatar = () => {
           clearCache: true,
           quickStart: false,
         }}
-        onAvatarExported={ (avatar) => {
-          console.log(avatar);
-          console.log(avatar.data.url);
-          created(avatar);
-          console.log("avatar saved");
-          setInterval(() => {
-            navigate("/avatarCreated");
-          }, 3000);
+        onAvatarExported={(avatar) => {
+          console.log("Avatar exported:", avatar);
+          console.log("Avatar URL:", avatar.data.url);
+          created(avatar);  
         }}
       />
     </div>

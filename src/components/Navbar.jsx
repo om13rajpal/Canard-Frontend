@@ -48,7 +48,7 @@ const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewi
           <img
             src="/cart.png"
             alt=""
-            className="opacity-80 w-[18px] h-[18px]"
+            className="opacity-80 w-[18px] h-[18px] cursor-pointer"
             onClick={()=>{
               setViewingCart(!viewingCart);
             }}

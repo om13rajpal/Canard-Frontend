@@ -3,29 +3,36 @@ import { useNavigate } from "react-router-dom";
 import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
 
-export default function CreateSquad() {
-  const [squadName, setSquadName] = useState("");
-  const [callingCard, setCallingCard] = useState("");
+export default function AdminLogin() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+
+  const token = localStorage.getItem("token");
   
 
-
-
   const navigate = useNavigate();
-
+  let res;
   const handleDiveInClick = async () => {
     try {
-      const res = await axios.post(
-        "https://api.mlsc.tech/team",
-        {
-          name: squadName,
-          callingCard: parseInt(callingCard),
+      res = await axios.post("https://api.mlsc.tech/admin/login", {
+        username: username,
+        password: password,
+      },{
+        headers:{
+          Authorization: `Bearer ${token}`,
         }
-      );
-
+      });
       console.log(res.data);
-
-      navigate("/addMembers", { state: { squadName} });
+      navigate("/");
     } catch (error) {
+      console.log(error.response.data.message);
+      setPopupMessage(error.response.data.message);
+      setShowPopup(true);
+      if (!error.response.data.status) {
+        return;
+      }
       console.error("Error sending data:", error);
     }
   };
@@ -95,7 +102,7 @@ export default function CreateSquad() {
                 textShadow: "2px 2px 5px rgba(0, 0, 0, 0.7)",
               }}
             >
-              CREATE YOUR SQUAD
+              ADMIN LOGIN
             </h1>
           </div>
 
@@ -110,7 +117,7 @@ export default function CreateSquad() {
             }}
           >
             <input
-              placeholder="SQUAD_NAME"
+              placeholder="ADMIN_NAME"
               style={{
                 backgroundColor: "#141414",
                 height: "60px",
@@ -123,10 +130,13 @@ export default function CreateSquad() {
                 marginTop: "25px",
               }}
               type="text"
-              value={squadName}
-              onChange={(e) => setSquadName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <select
+            <input
+              type="password"
+              id=""
+              placeholder="PASSWORD"
               style={{
                 backgroundColor: "#141414",
                 height: "60px",
@@ -134,32 +144,13 @@ export default function CreateSquad() {
                 border: "1px solid rgba(255, 255, 255, 0.5)",
                 borderRadius: "10px",
                 padding: "20px",
-                color: "#9CA3AF",
+                color: "white",
                 fontSize: "15px",
-                zIndex: 3,
-                cursor: "pointer",
                 marginTop: "25px",
               }}
-              name="CHOOSE"
-              id="CHOOSE"
-              defaultValue=""
-              onChange={(e) => setCallingCard(e.target.value)}
-            >
-              <option
-                value=""
-                disabled
-                style={{
-                  color: "#9CA3AF",
-                }}
-              >
-                CHOOSE YOUR CALLING CARD
-              </option>
-              {Array.from({ length: 10 }, (_, index) => (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
             <div
               onClick={handleDiveInClick}
@@ -181,6 +172,19 @@ export default function CreateSquad() {
           </div>
         </div>
       </div>
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-[#c0c0c0] p-10 rounded-lg shadow-lg text-center">
+            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">{popupMessage}</h3>
+            <button
+              className="bg-black text-white px-4 py-[2px] rounded-md"
+              onClick={() => setShowPopup(false)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

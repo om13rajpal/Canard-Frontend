@@ -17,19 +17,9 @@ function AddMembers() {
 
 
   const handleAddMember = async () => {
-    try {
-
-      const res= await axios.post("https://api.mlsc.tech/user", {
-        username: currentName,
-        email: currentEmail,
-        password: currentPassword,
-        teamName: squadName,
-
-      })
-      
-    } catch (error) {
-      console.error("Error sending data:", error);
-      
+    if(currentPassword.length<5){
+      alert("Password should be atleast 5 characters long")
+      return;
     }
     if (currentName.trim() !== "") {
       const updatedNames = [...names, currentName];
@@ -43,9 +33,22 @@ function AddMembers() {
         setShowCompletionMessage(false);
       }
     }
+    try {
+
+      const res= await axios.post("https://api.mlsc.tech/user", {
+        username: currentName,
+        email: currentEmail,
+        password: currentPassword,
+        teamName: squadName,
+      })
+      
+    } catch (error) {
+      console.error("Error sending data:", error);
+      
+    }
   };
   const handleNext = () => {
-    window.location.reload();
+    navigate("/register");
   };
 
   const [emails, setEmails] = useState([]);
@@ -73,7 +76,6 @@ function AddMembers() {
       names: currentName,
       emails: currentEmail,
       passwords: currentPassword,
-      callingCard: callingCard,
     };
     setObjectList([...objectList, newMember]);
     console.log(objectList);

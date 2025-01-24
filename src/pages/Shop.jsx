@@ -1,5 +1,7 @@
+import axios from "axios";
 import gsap from "gsap";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Shop = ({ viewingCart, setViewingcart }) => {
   const [cart, setCart] = useState([]);
@@ -9,68 +11,71 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
 
-  const powerUps = [
-    {
-      name: "Power Up 1",
-      price: 200,
-      description: "Boosts attack speed by 10%",
-      image: "/powerup/1",
-    },
-    {
-      name: "Power Up 2",
-      price: 300,
-      description: "Enhances health regeneration by 15%",
-      image: "/powerup/2",
-    },
-    {
-      name: "Power Up 3",
-      price: 400,
-      description: "Increases defense by 20%",
-      image: "/powerup/3",
-    },
-    {
-      name: "Power Up 4",
-      price: 250,
-      description: "Improves stamina recovery by 25%",
-      image: "/powerup/4",
-    },
-    {
-      name: "Power Up 5",
-      price: 350,
-      description: "Boosts movement speed by 30%",
-      image: "/powerup/5",
-    },
-    {
-      name: "Power Up 6",
-      price: 450,
-      description: "Increases jump height by 35%",
-      image: "/powerup/6",
-    },
-    {
-      name: "Power Up 7",
-      price: 500,
-      description: "Enhances all stats by 40%",
-      image: "/powerup/7",
-    },
-    {
-      name: "Power Up 8",
-      price: 600,
-      description: "Unlocks all achievements",
-      image: "/powerup/8",
-    },
-    {
-      name: "Power Up 9",
-      price: 700,
-      description: "Grants invincibility for 10 seconds",
-      image: "/powerup/9",
-    },
-    {
-      name: "Power Up 10",
-      price: 800,
-      description: "Grants unlimited ammo for 15 seconds",
-      image: "/powerup/10",
-    },
-  ];
+  const token = localStorage.getItem("token");
+  const teamId = localStorage.getItem("teamId");
+
+    const powerUps = [
+      {
+        name: "Power Up 1",
+        price: 200,
+        description: "Boosts attack speed by 10%",
+        image: "/powerup/1",
+      },
+      {
+        name: "Power Up 2",
+        price: 300,
+        description: "Enhances health regeneration by 15%",
+        image: "/powerup/2",
+      },
+      {
+        name: "Power Up 3",
+        price: 400,
+        description: "Increases defense by 20%",
+        image: "/powerup/3",
+      },
+      {
+        name: "Power Up 4",
+        price: 250,
+        description: "Improves stamina recovery by 25%",
+        image: "/powerup/4",
+      },
+      {
+        name: "Power Up 5",
+        price: 350,
+        description: "Boosts movement speed by 30%",
+        image: "/powerup/5",
+      },
+      {
+        name: "Power Up 6",
+        price: 450,
+        description: "Increases jump height by 35%",
+        image: "/powerup/6",
+      },
+      {
+        name: "Power Up 7",
+        price: 500,
+        description: "Enhances all stats by 40%",
+        image: "/powerup/7",
+      },
+      {
+        name: "Power Up 8",
+        price: 600,
+        description: "Unlocks all achievements",
+        image: "/powerup/8",
+      },
+      {
+        name: "Power Up 9",
+        price: 700,
+        description: "Grants invincibility for 10 seconds",
+        image: "/powerup/9",
+      },
+      {
+        name: "Power Up 10",
+        price: 800,
+        description: "Grants unlimited ammo for 15 seconds",
+        image: "/powerup/10",
+      },
+    ];
 
   const handleAddToCart = (powerUp) => {
     if (boughtItems.includes(powerUp.name)) {
@@ -84,7 +89,7 @@ const Shop = ({ viewingCart, setViewingcart }) => {
     }
   };
 
-  const handleBuy = () => {
+  const handleBuy = async() => {
     const totalCost = cart.reduce((acc, item) => acc + item.price, 0);
 
     if (totalCost <= currencyLeft) {
@@ -92,6 +97,31 @@ const Shop = ({ viewingCart, setViewingcart }) => {
       setBoughtItems((prev) => [...prev, ...cart.map((item) => item.name)]);
       setCart([]);
     }
+
+    setCreditCard("");
+    setPopupMessage("PURCHASE SUCCESSFUL!");
+    setShowPopup(true);
+    
+    const boughtItems = cart.map((item) => powerUps.findIndex((powerUp) => powerUp.name === item.name));
+    console.log(boughtItems);
+
+    try {
+      const res=await axios.patch(`https://precisely-sk-chains-adaptor.trycloudflare.com/team/${teamId}/powerups`,{
+        powerups: boughtItems,
+        creditCard: creditCard,
+        totalCost: totalCost
+      } ,{
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error buying items:", error);
+      
+    }
+
+
 
     console.log("Bought items: ", boughtItems);
     console.log(currencyLeft)
