@@ -7,8 +7,8 @@ const CreateAvatar = () => {
   const navigate = useNavigate();
 
   const {state}=useLocation();
-  const userId = state.userId;
-  const token = state.token;
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   console.log("User ID:", userId);
 

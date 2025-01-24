@@ -38,7 +38,7 @@ export default function Login() {
       if (res.data.data.user.avatar === null) {
         console.log("No avatar");
         setPopupMessage(
-          "No avatar found. Please create an avatar. Redirecting to avatar creation page."
+          "NO AVATAR FOUND. PLEASE CREATE AN AVATAR TO CONTINUE. REDIRECTING TO AVATAR CREATION PAGE."
         );
         setShowPopup(true);
         setTimeout(() => {

@@ -12,13 +12,11 @@ function AddMembers() {
   const [showCompletionMessage, setShowCompletionMessage] = useState(false);
 
   const { state } = useLocation();
-  const { squadName} = state || {}; // Safely extract the state
-  
-
+  const { squadName } = state || {}; // Safely extract the state
 
   const handleAddMember = async () => {
-    if(currentPassword.length<5){
-      alert("Password should be atleast 5 characters long")
+    if (currentPassword.length < 5) {
+      alert("Password should be atleast 5 characters long");
       return;
     }
     if (currentName.trim() !== "") {
@@ -34,17 +32,14 @@ function AddMembers() {
       }
     }
     try {
-
-      const res= await axios.post("https://api.mlsc.tech/user", {
+      const res = await axios.post("https://api.mlsc.tech/user", {
         username: currentName,
         email: currentEmail,
         password: currentPassword,
         teamName: squadName,
-      })
-      
+      });
     } catch (error) {
       console.error("Error sending data:", error);
-      
     }
   };
   const handleNext = () => {
@@ -67,8 +62,6 @@ function AddMembers() {
       setCurrentPassword("");
     }
   };
-
-
 
   const [objectList, setObjectList] = useState([]);
   const handleAdd = () => {
@@ -150,7 +143,7 @@ function AddMembers() {
             zIndex: -1,
           }}
         />
-        <Navbar />
+        
         <div
           style={{
             width: "100%",
@@ -253,7 +246,6 @@ function AddMembers() {
                       value={currentPassword}
                       onChange={(e) => setCurrentPassword(e.target.value)}
                     />
-                   
                   </div>
 
                   <span
@@ -284,14 +276,12 @@ function AddMembers() {
                     >
                       ADD TO SQUAD
                     </button>
-                   
                   </span>
                 </>
               ) : (
                 <div style={{ color: "white", textAlign: "center" }}>
                   <h2 className="completed-text">COMPLETED!</h2>
                   <div className="flex flex-row justify-center items-center gap-4">
-                    
                     <button
                       style={{
                         backgroundColor: "#141414",
