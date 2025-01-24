@@ -7,6 +7,7 @@ import PageLoading from "./pages/PageLoading";
 import CreateSquad from "./pages/CreateSquad";
 import AddMembers from "./pages/AddMembers";
 import Login from "./pages/Login";
+import AdminLogin from "./pages/AdminLogin";
 
 const CreateAvatar = lazy(() => import("./pages/CreateAvatar"));
 const Stats = lazy(() => import("./pages/Stats"));
