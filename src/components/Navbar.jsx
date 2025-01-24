@@ -1,8 +1,16 @@
 import gsap from "gsap";
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewingCart }) => {
+const Navbar = ({
+  viewingStats,
+  setViewingStats,
+  cardPage,
+  viewingCart,
+  setViewingCart,
+}) => {
+  const navigate = useNavigate();
+  const [gif, setGif] = useState("");
   useEffect(() => {
     gsap.to("#nav", {
       y: 70,
@@ -10,18 +18,24 @@ const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewi
       duration: 0.45,
       delay: 3,
     });
+
+    setGif(localStorage.getItem("callingCard"));
   });
+
   return (
     <nav className="flex absolute z-30 w-full justify-between items-center px-[50px] top-3 translate-y-[-70px]">
       <img
-        src="/callingtwo.gif"
+        src={gif ? gif : null}
         alt=""
-        className="bg-black w-[5vw] rounded-lg"
+        className="w-[5vw] rounded-lg border-transparent object-cover"
+        style={{
+          aspectRatio: "2/1",
+        }}
         id="nav"
       />
       <div className="absolute top-0 bottom-0 right-0 left-0 flex justify-center items-center">
         <Link to={"/"}>
-        <img src="/logo.png" id="nav" className="w-[210px] h-[25px]" />
+          <img src="/logo.png" id="nav" className="w-[210px] h-[25px]" />
         </Link>
       </div>
       <div className="opacity-80 w-[25vw] flex justify-evenly" id="nav">
@@ -32,9 +46,9 @@ const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewi
           TEAM
         </Link>
         <Link to={"/shop"}>
-        <p className="text-white font-alien font-thin tracking-[1.2px] text-[14px] mr-4">
-          SHOP
-        </p>
+          <p className="text-white font-alien font-thin tracking-[1.2px] text-[14px] mr-4">
+            SHOP
+          </p>
         </Link>
         <img
           src="/user.png"
@@ -49,7 +63,7 @@ const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewi
             src="/cart.png"
             alt=""
             className="opacity-80 w-[18px] h-[18px]"
-            onClick={()=>{
+            onClick={() => {
               setViewingCart(!viewingCart);
             }}
           />
@@ -58,11 +72,12 @@ const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewi
           src="/logout.png"
           alt=""
           className="opacity-80 w-[18px] h-[18px] cursor-pointer"
-          onClick={()=>{
+          onClick={() => {
             console.log("Logout");
+            localStorage.clear();
+            navigate("/login");
           }}
         />
-        
       </div>
     </nav>
   );

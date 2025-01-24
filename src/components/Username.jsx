@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import React, { useEffect } from "react";
 
-const Username = () => {
+const Username = ({username}) => {
   useEffect(() => {
     gsap.to("#corner", {
       x: 2,
@@ -35,7 +35,7 @@ const Username = () => {
         id="name"
         style={{ width: "0px" }}
       >
-        <p className="translate-y-[1.5px] opacity-0">OMRAJPAL13</p>
+        <p className="translate-y-[1.5px] opacity-0">{username}</p>
       </div>
     </div>
   );

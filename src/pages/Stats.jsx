@@ -5,9 +5,15 @@ import StatsBorder from "../components/StatsBorder";
 import gsap from "gsap";
 import Games from "../components/Games";
 import { toPng } from "html-to-image";
+import axios from "axios";
 
 const Stats = ({ viewingStats }) => {
   const [animationUrl, setAnimationUrl] = useState("/dancee.fbx");
+  const [username, setUserName] = useState("");
+  const [teamName, setTeamName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+
+  console.log(username, teamName, avatarUrl);
 
   const scrollRef = useRef();
   const pageRef = useRef();
@@ -46,6 +52,29 @@ const Stats = ({ viewingStats }) => {
       alert("Sharing is not supported on this browser.");
     }
   };
+
+  useEffect(()=>{
+    fetchData();
+  })
+
+  async function fetchData(){
+    const token = localStorage.getItem("token")
+    const userId = localStorage.getItem("userId")
+    const response = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    const data = await response.data;
+    console.log(data)
+    console.log(data.data.user.username)
+    console.log(data.data.user.teamName)
+    console.log(data.data.user.avatar)
+
+    setUserName(data.data.user.username)
+    setTeamName(data.data.user.teamName)
+    setAvatarUrl(data.data.user.avatar)
+  }
 
   useEffect(() => {
     const scrollElement = scrollRef.current;
@@ -256,24 +285,26 @@ const Stats = ({ viewingStats }) => {
         className="font-thaust text-white absolute text-[9.7vw] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
         id="username"
       >
-        Thunder
+        {username}
       </div>
       <div
         className="absolute flex items-center bottom-0 top-0 left-[200px] opacity-85"
         id="teamname"
       >
         <p className="font-team text-white text-[7.2vw]  translate-y-[70px] ">
-          IMPOSTERS
+          {teamName}
         </p>
       </div>
-      <AvatarCanvas
-        viewingStats={viewingStats}
-        animationUrl={animationUrl}
-        cameraDistance={2}
-        avatarXPosition={1.4}
-        avatarYPosition={-1}
-        modelUrl={"https://models.readyplayer.me/678d5a50f2d97b1d4d6119d8.glb"}
-      />
+      {avatarUrl ? (
+        <AvatarCanvas
+          viewingStats={viewingStats}
+          animationUrl={animationUrl}
+          cameraDistance={2}
+          avatarXPosition={1.4}
+          avatarYPosition={-1}
+          modelUrl={avatarUrl}
+        />
+      ) : null}
       <div className="flex absolute bottom-[25px] left-[50px] z-20 ">
         <div id="emote" className="cursor-pointer">
           <Emote
