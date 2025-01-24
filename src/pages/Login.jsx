@@ -6,6 +6,9 @@ import axios from "axios";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  
 
   const navigate = useNavigate();
   let res;
@@ -20,14 +23,16 @@ export default function Login() {
       if (res.data.data.user.avatar === null) {
         console.log("No avatar");
         navigate("/createAvatar", { state: { userId: res.data.data.user.id } });
-        alert("Please create an avatar first");
+        setPopupMessage("No avatar found. Please create an avatar.");
+        setShowPopup(true);
       } else {
         navigate("/", { state: { username } });
       }
     } catch (error) {
       console.log(error.response.data.message);
+      setPopupMessage(error.response.data.message);
+      setShowPopup(true);
       if (!error.response.data.status) {
-        alert(error.response.data.message);
         return;
       }
       console.error("Error sending data:", error);
@@ -169,6 +174,19 @@ export default function Login() {
           </div>
         </div>
       </div>
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-[#c0c0c0] p-10 rounded-lg shadow-lg text-center">
+            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">{popupMessage}</h3>
+            <button
+              className="bg-black text-white px-4 py-[2px] rounded-md"
+              onClick={() => setShowPopup(false)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
