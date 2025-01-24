@@ -53,11 +53,12 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
-    if (!token && (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/addMembers")) {
+  
+    if (!token && (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/addMembers" && location.pathname !== "/adminLogin")) {
       navigate("/login");
     }
   }, [location.pathname, navigate]);
+  
 
   if (loading) {
     return <Loading />;

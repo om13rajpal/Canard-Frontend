@@ -114,6 +114,8 @@ export default function AdminLogin() {
               textAlign: "center",
             }}
           >
+            <div className="flex flex-col items-center">
+
             <input
               placeholder="ADMIN_NAME"
               style={{
@@ -130,7 +132,7 @@ export default function AdminLogin() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-            />
+              />
             <input
               type="password"
               id=""
@@ -148,7 +150,8 @@ export default function AdminLogin() {
               }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            />
+              />
+              </div>
 
             <div
               onClick={handleDiveInClick}
