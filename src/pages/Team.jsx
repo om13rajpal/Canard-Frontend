@@ -6,8 +6,37 @@ import gsap from "gsap";
 import Games from "../components/Games";
 import Username from "../components/Username";
 import { useGLTF } from "@react-three/drei";
+import axios from "axios";
 
 const Team = () => {
+  const [member1, setMember1] = useState({});
+  const [member2, setMember2] = useState({});
+  const [member3, setMember3] = useState({});
+  const [member4, setMember4] = useState({});
+  const [teamName, setTeamName] = useState("");
+  useEffect(() => {
+    getTeam();
+  }, []);
+
+  async function getTeam() {
+    const teamId = localStorage.getItem("teamId");
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`https://api.mlsc.tech/team/${teamId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.data;
+
+    console.log(data);
+    setMember1(data.data.team.members[0]);
+    setMember2(data.data.team.members[1]);
+    setMember3(data.data.team.members[2]);
+    setMember4(data.data.team.members[3]);
+    setTeamName(data.data.team.name);
+  }
+
   return (
     <div className="w-screen h-screen flex flex-col absolute bg-black">
       <img
@@ -25,56 +54,55 @@ const Team = () => {
         className="font-thaust text-white absolute text-[160px] flex items-center justify-center top-[90px] left-0 right-0 opacity-85  translate-y-[-50px]"
         id="username"
       >
-        IMPOSTERS
+        {teamName}
       </div>
-      <AvatarCanvas
-      key={"user1"}
-        viewingStats={false}
-        animationUrl={"/dancee.fbx"}
-        cameraDistance={2.4}
-        avatarXPosition={2.4}
-        avatarYPosition={-0.9}
-        modelUrl={"https://models.readyplayer.me/67888ec29d4ee5b5795a8c7a.glb"}
-      />
-      <AvatarCanvas
-        viewingStats={false}
-        key={"user2"}
-        animationUrl={"/drunk.fbx"}
-        cameraDistance={2.4}
-        avatarXPosition={0.8}
-        avatarYPosition={-0.9}
-        modelUrl={"https://models.readyplayer.me/6786a46a366e0dd03586ae7d.glb"}
-      />
-      <AvatarCanvas
-      key={"user3"}
-        viewingStats={false}
-        animationUrl={"/anim.fbx"}
-        cameraDistance={2.4}
-        avatarXPosition={-0.8}
-        avatarYPosition={-0.9}
-        modelUrl={"https://models.readyplayer.me/678891549d4ee5b5795aa00e.glb"}
-      />
-      <AvatarCanvas
-      key={"user4"}
-        viewingStats={false}
-        animationUrl={"/dancee.fbx"}
-        cameraDistance={2.4}
-        avatarXPosition={-2.4}
-        avatarYPosition={-0.9}
-        modelUrl={"https://models.readyplayer.me/678891a87db94859385cbcd4.glb"}
-      />
-      <div className="absolute w-screen flex bottom-[65px] h-20 justify-center items-center" id="usernames">
+      {member1.avatar && (
+        <AvatarCanvas
+          key={"user1"}
+          viewingStats={false}
+          animationUrl={"/dancee.fbx"}
+          cameraDistance={2.4}
+          avatarXPosition={2.4}
+          avatarYPosition={-0.9}
+          modelUrl={member1.avatar}
+        />
+      )}
+      {member2.avatar && (
+        <AvatarCanvas
+          viewingStats={false}
+          key={"user2"}
+          animationUrl={"/drunk.fbx"}
+          cameraDistance={2.4}
+          avatarXPosition={0.8}
+          avatarYPosition={-0.9}
+          modelUrl={member2.avatar}
+        />
+      )}
+      {member3.avatar && (
+        <AvatarCanvas
+          viewingStats={false}
+          animationUrl={"/anim.fbx"}
+          cameraDistance={2.4}
+          avatarXPosition={-0.8}
+          avatarYPosition={-0.9}
+          modelUrl={member3.avatar}
+        />
+      )}
+      <div
+        className="absolute w-screen flex bottom-[65px] h-20 justify-center items-center"
+        id="usernames"
+      >
         <div className="absolute left-[170px]">
-        <Username />
+          <Username username={member1.username}/>
         </div>
         <div className="absolute left-[500px] translate-y-2">
-        <Username />
+          <Username username={member2.username}/>
         </div>
         <div className="absolute right-[170px] translate-y-2">
-        <Username />
+          <Username username={member3.username}/>
         </div>
         <div className="absolute right-[500px]">
-        <Username />
+          <Username username={member4.username}/>
         </div>
       </div>
       <div className="flex absolute bottom-[25px] left-[50px] z-30">

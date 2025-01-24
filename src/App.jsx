@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Loading from "./pages/Loading";
 import Done from "./pages/Done";
@@ -7,8 +7,6 @@ import PageLoading from "./pages/PageLoading";
 import CreateSquad from "./pages/CreateSquad";
 import AddMembers from "./pages/AddMembers";
 import Login from "./pages/Login";
-import AdminLogin from "./pages/AdminLogin";
-
 
 const CreateAvatar = lazy(() => import("./pages/CreateAvatar"));
 const Stats = lazy(() => import("./pages/Stats"));
@@ -23,6 +21,8 @@ const App = () => {
   const [viewNavbar, setViewnavbar] = useState(true);
   const [cardPage, setCardPage] = useState(false);
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,17 +41,22 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    // Define paths where the navbar should not be visible
     const hiddenNavbarPaths = ["/createAvatar", "/register"];
-  
-    // Check if the current path matches any of the hiddenNavbarPaths
+
     if (hiddenNavbarPaths.includes(location.pathname)) {
       setViewnavbar(false);
     } else {
       setViewnavbar(true);
     }
   }, [location.pathname]);
-  
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token && (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/addMembers")) {
+      navigate("/login");
+    }
+  }, [location.pathname, navigate]);
 
   if (loading) {
     return <Loading />;
