@@ -1,18 +1,36 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import MemberDiv from "../components/Memberdiv";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 function AddMembers() {
-  
+  const navigate = useNavigate();
+
   const [names, setNames] = useState([]);
   const [currentName, setCurrentName] = useState("");
   const [showCompletionMessage, setShowCompletionMessage] = useState(false);
 
   const { state } = useLocation();
-  const { squadName, password } = state || {}; // Safely extract the state
+  const { squadName} = state || {}; // Safely extract the state
+  
 
-  const handleAddMember = () => {
+
+  const handleAddMember = async () => {
+    try {
+
+      const res= await axios.post("https://api.mlsc.tech/user", {
+        username: currentName,
+        email: currentEmail,
+        password: currentPassword,
+        teamName: squadName,
+
+      })
+      
+    } catch (error) {
+      console.error("Error sending data:", error);
+      
+    }
     if (currentName.trim() !== "") {
       const updatedNames = [...names, currentName];
       setNames(updatedNames);
@@ -27,10 +45,12 @@ function AddMembers() {
     }
   };
   const handleNext = () => {
-    setNames([]);
-    setShowCompletionMessage(false);
+    window.location.reload();
   };
+
   const [emails, setEmails] = useState([]);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [passwords, setPasswords] = useState([]);
   const [currentEmail, setCurrentEmail] = useState("");
   const handleAddEmail = () => {
     if (currentEmail.trim() !== "") {
@@ -38,11 +58,34 @@ function AddMembers() {
       setCurrentEmail("");
     }
   };
+  const handleAddPassword = () => {
+    if (currentPassword.trim() !== "") {
+      setPasswords([...passwords, currentPassword]);
+      setCurrentPassword("");
+    }
+  };
 
-  useEffect(()=>{
+
+
+  const [objectList, setObjectList] = useState([]);
+  const handleAdd = () => {
+    const newMember = {
+      names: currentName,
+      emails: currentEmail,
+      passwords: currentPassword,
+      callingCard: callingCard,
+    };
+    setObjectList([...objectList, newMember]);
+    console.log(objectList);
+    setCallingCard("");
+    setCurrentEmail("");
+    setCurrentName("");
+    setCurrentPassword("");
+  };
+
+  useEffect(() => {
     console.log(squadName);
-    console.log(password);
-  }, [])
+  }, []);
 
   return (
     <>
@@ -126,7 +169,7 @@ function AddMembers() {
           />
         </div>
 
-        <div className="container mt-3" style={{ marginTop: "40px" }}>
+        <div className="container mt-3" style={{ marginTop: "10px" }}>
           <div className="row">
             <div
               className="col-lg-8 d-flex flex-column align-items-center"
@@ -138,7 +181,7 @@ function AddMembers() {
                 zIndex: 4,
               }}
             >
-              <span style={{ width: "900px", marginBottom: "20px" }}>
+              <span style={{ width: "900px", marginBottom: "5px" }}>
                 <h1
                   style={{
                     color: "white",
@@ -152,45 +195,70 @@ function AddMembers() {
               </span>
               {!showCompletionMessage ? (
                 <>
-                  <input
-                    placeholder="MEMBER_NAME"
-                    style={{
-                      backgroundColor: "#141414",
-                      height: "60px",
-                      width: "400px",
-                      border: "1px solid rgba(255, 255, 255, 0.5)",
-                      borderRadius: "10px",
-                      padding: "20px",
-                      color: "white",
-                      fontSize: "15px",
-                      marginTop: "-20px",
-                    }}
-                    type="text"
-                    value={currentName}
-                    onChange={(e) => setCurrentName(e.target.value)}
-                  />
-                  <input
-                    placeholder="EMAIL_ID"
-                    style={{
-                      backgroundColor: "#141414",
-                      height: "60px",
-                      width: "400px",
-                      border: "1px solid rgba(255, 255, 255, 0.5)",
-                      borderRadius: "10px",
-                      padding: "20px",
-                      color: "white",
-                      fontSize: "15px",
-                      marginTop: "25px",
-                    }}
-                    type="text"
-                    value={currentEmail}
-                    onChange={(e) => setCurrentEmail(e.target.value)}
-                  />
+                  <div className="w-[800px] h-[200px] flex flex-col justify-between items-center">
+                    <input
+                      placeholder="MEMBER_NAME"
+                      style={{
+                        backgroundColor: "#141414",
+                        height: "60px",
+                        width: "400px",
+                        border: "1px solid rgba(255, 255, 255, 0.5)",
+                        borderRadius: "10px",
+                        padding: "20px",
+                        color: "white",
+                        fontSize: "15px",
+                        zIndex: 3,
+                        marginBottom: "10px",
+                      }}
+                      type="text"
+                      value={currentName}
+                      onChange={(e) => setCurrentName(e.target.value)}
+                    />
+                    <input
+                      placeholder="EMAIL_ID"
+                      style={{
+                        backgroundColor: "#141414",
+                        height: "60px",
+                        width: "400px",
+                        border: "1px solid rgba(255, 255, 255, 0.5)",
+                        borderRadius: "10px",
+                        padding: "20px",
+                        color: "white",
+                        fontSize: "15px",
+                        zIndex: 3,
+                        marginBottom: "10px",
+                        marginTop: "10px",
+                      }}
+                      type="text"
+                      value={currentEmail}
+                      onChange={(e) => setCurrentEmail(e.target.value)}
+                    />
+                    <input
+                      placeholder="PASSWORD"
+                      style={{
+                        backgroundColor: "#141414",
+                        height: "60px",
+                        width: "400px",
+                        border: "1px solid rgba(255, 255, 255, 0.5)",
+                        borderRadius: "10px",
+                        padding: "20px",
+                        color: "white",
+                        fontSize: "15px",
+                        zIndex: 3,
+                        marginTop: "10px",
+                      }}
+                      type="password"
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                    />
+                   
+                  </div>
+
                   <span
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      marginTop: "10px",
+                      marginTop: "35px",
                     }}
                   >
                     <button
@@ -202,56 +270,50 @@ function AddMembers() {
                         borderRadius: "10px",
                         color: "white",
                         fontSize: "15px",
+                        cursor: "pointer",
+                        zIndex: 3,
                       }}
                       onClick={() => {
                         handleAddMember();
                         handleAddEmail();
+                        handleAddPassword();
+                        handleAdd();
                       }}
                     >
                       ADD TO SQUAD
                     </button>
-
-                    <span style={{ color: "white", margin: "0 20px" }}>|</span>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <img
-                        src="/playbutton.png"
-                        style={{ width: "50px", marginRight: "10px" }}
-                      />
-                      <span style={{ color: "white", fontSize: "15px" }}>
-                        MISSION
-                      </span>
-                    </div>
+                   
                   </span>
                 </>
               ) : (
                 <div style={{ color: "white", textAlign: "center" }}>
                   <h2 className="completed-text">COMPLETED!</h2>
-                  <button
-                    style={{
-                      backgroundColor: "#141414",
-                      height: "50px",
-                      width: "150px",
-                      border: "1px solid rgba(255, 255, 255, 0.5)",
-                      borderRadius: "10px",
-                      color: "white",
-                      fontSize: "15px",
-                      marginTop: "20px",
-                    }}
-                    onClick={handleNext}
-                  >
-                    Next ➡
-                  </button>
+                  <div className="flex flex-row justify-center items-center gap-4">
+                    
+                    <button
+                      style={{
+                        backgroundColor: "#141414",
+                        height: "50px",
+                        width: "150px",
+                        border: "1px solid rgba(255, 255, 255, 0.5)",
+                        borderRadius: "10px",
+                        color: "white",
+                        fontSize: "15px",
+                        marginTop: "20px",
+                        zIndex: 3,
+                      }}
+                      onClick={handleNext}
+                    >
+                      Next
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
-            <div className="col-lg-4" style={{ marginTop: "40px" }}>
+            <div
+              className="col-lg-4 flex-row flex gap-4 items-center justify-center"
+              style={{ marginTop: "30px", marginBottom: "30px" }}
+            >
               {names.map((member, index) => (
                 <MemberDiv key={index} memberName={member} />
               ))}

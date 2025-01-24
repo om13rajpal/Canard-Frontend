@@ -6,6 +6,8 @@ import Done from "./pages/Done";
 import PageLoading from "./pages/PageLoading";
 import CreateSquad from "./pages/CreateSquad";
 import AddMembers from "./pages/AddMembers";
+import Login from "./pages/Login";
+
 
 const CreateAvatar = lazy(() => import("./pages/CreateAvatar"));
 const Stats = lazy(() => import("./pages/Stats"));
@@ -38,21 +40,17 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (location.pathname === "/register") {
-      setViewnavbar(false);
-    }
-    else{
-      setViewnavbar(true);
-    }
-  });
-
-  useEffect(() => {
-    if (location.pathname === "/createAvatar") {
+    // Define paths where the navbar should not be visible
+    const hiddenNavbarPaths = ["/createAvatar", "/register"];
+  
+    // Check if the current path matches any of the hiddenNavbarPaths
+    if (hiddenNavbarPaths.includes(location.pathname)) {
       setViewnavbar(false);
     } else {
       setViewnavbar(true);
     }
   }, [location.pathname]);
+  
 
   if (loading) {
     return <Loading />;
@@ -83,6 +81,7 @@ const App = () => {
           <Route path="/team" element={<Team />} />
           <Route path="/register" element={<CreateSquad />} />
           <Route path="/addMembers" element={<AddMembers />} />
+          <Route path="/login" element={<Login/>}/>
           <Route
             path="/shop"
             element={

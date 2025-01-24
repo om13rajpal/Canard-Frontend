@@ -39,7 +39,7 @@ const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewi
         <img
           src="/user.png"
           alt=""
-          className="opacity-80 w-[18px] h-[18px]"
+          className="opacity-80 w-[18px] h-[18px] cursor-pointer"
           onClick={() => {
             setViewingStats(!viewingStats);
           }}
@@ -57,7 +57,7 @@ const Navbar = ({ viewingStats, setViewingStats, cardPage, viewingCart, setViewi
         <img
           src="/logout.png"
           alt=""
-          className="opacity-80 w-[18px] h-[18px]"
+          className="opacity-80 w-[18px] h-[18px] cursor-pointer"
           onClick={()=>{
             console.log("Logout");
           }}

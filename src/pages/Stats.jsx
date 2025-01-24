@@ -253,7 +253,7 @@ const Stats = ({ viewingStats }) => {
         <img src="/japanese.png" alt="" className="w-[30vw]" id="japanese" />
       </div>
       <div
-        className="font-thaust text-white absolute text-[150px] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
+        className="font-thaust text-white absolute text-[9.7vw] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
         id="username"
       >
         Thunder
@@ -262,7 +262,7 @@ const Stats = ({ viewingStats }) => {
         className="absolute flex items-center bottom-0 top-0 left-[200px] opacity-85"
         id="teamname"
       >
-        <p className="font-team text-white text-[75px]  translate-y-[70px] ">
+        <p className="font-team text-white text-[7.2vw]  translate-y-[70px] ">
           IMPOSTERS
         </p>
       </div>
@@ -274,8 +274,8 @@ const Stats = ({ viewingStats }) => {
         avatarYPosition={-1}
         modelUrl={"https://models.readyplayer.me/678d5a50f2d97b1d4d6119d8.glb"}
       />
-      <div className="flex absolute bottom-[25px] left-[50px] z-20">
-        <div id="emote">
+      <div className="flex absolute bottom-[25px] left-[50px] z-20 ">
+        <div id="emote" className="cursor-pointer">
           <Emote
           key={1}
             width={"17px"}
@@ -285,7 +285,7 @@ const Stats = ({ viewingStats }) => {
             }}
           />
         </div>
-        <div id="emote">
+        <div id="emote" className="cursor-pointer">
           <Emote
           key={2}
             width={"17px"}
@@ -295,7 +295,7 @@ const Stats = ({ viewingStats }) => {
             }}
           />
         </div>
-        <div id="emote">
+        <div id="emote" className="cursor-pointer">
           <Emote
           key={3}
             width={"17px"}
@@ -304,7 +304,7 @@ const Stats = ({ viewingStats }) => {
             }}
           />
         </div>
-        <div id="emote">
+        <div id="emote" className="cursor-pointer">
           <Emote
           key={4}
             width={"17px"}
@@ -313,7 +313,7 @@ const Stats = ({ viewingStats }) => {
             }}
           />
         </div>
-        <div id="emote">
+        <div id="emote" className="cursor-pointer">
           <Emote
           key={5}
             width={"17px"}

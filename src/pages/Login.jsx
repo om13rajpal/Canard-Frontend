@@ -3,28 +3,33 @@ import { useNavigate } from "react-router-dom";
 import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
 
-export default function CreateSquad() {
-  const [squadName, setSquadName] = useState("");
-  const [callingCard, setCallingCard] = useState("");
-
-
+export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-
+  let res;
   const handleDiveInClick = async () => {
     try {
-      const res = await axios.post(
-        "https://api.mlsc.tech/team",
-        {
-          name: squadName,
-          callingCard: parseInt(callingCard),
-        }
-      );
-
+      res = await axios.post("https://api.mlsc.tech/user/login", {
+        username: username,
+        password: password,
+      });
       console.log(res.data);
-
-      navigate("/addMembers", { state: { squadName} });
+      console.log(res.data.data.user.avatar === null);
+      if (res.data.data.user.avatar === null) {
+        console.log("No avatar");
+        navigate("/createAvatar", { state: { userId: res.data.data.user.id } });
+        alert("Please create an avatar first");
+      } else {
+        navigate("/", { state: { username } });
+      }
     } catch (error) {
+      console.log(error.response.data.message);
+      if (!error.response.data.status) {
+        alert(error.response.data.message);
+        return;
+      }
       console.error("Error sending data:", error);
     }
   };
@@ -94,7 +99,7 @@ export default function CreateSquad() {
                 textShadow: "2px 2px 5px rgba(0, 0, 0, 0.7)",
               }}
             >
-              CREATE YOUR SQUAD
+              LOGIN WITH YOUR SQUAD
             </h1>
           </div>
 
@@ -109,7 +114,7 @@ export default function CreateSquad() {
             }}
           >
             <input
-              placeholder="SQUAD_NAME"
+              placeholder="USERNAME"
               style={{
                 backgroundColor: "#141414",
                 height: "60px",
@@ -122,10 +127,13 @@ export default function CreateSquad() {
                 marginTop: "25px",
               }}
               type="text"
-              value={squadName}
-              onChange={(e) => setSquadName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <select
+            <input
+              type="password"
+              id=""
+              placeholder="PASSWORD"
               style={{
                 backgroundColor: "#141414",
                 height: "60px",
@@ -133,32 +141,13 @@ export default function CreateSquad() {
                 border: "1px solid rgba(255, 255, 255, 0.5)",
                 borderRadius: "10px",
                 padding: "20px",
-                color: "#9CA3AF",
+                color: "white",
                 fontSize: "15px",
-                zIndex: 3,
-                cursor: "pointer",
                 marginTop: "25px",
               }}
-              name="CHOOSE"
-              id="CHOOSE"
-              defaultValue=""
-              onChange={(e) => setCallingCard(e.target.value)}
-            >
-              <option
-                value=""
-                disabled
-                style={{
-                  color: "#9CA3AF",
-                }}
-              >
-                CHOOSE YOUR CALLING CARD
-              </option>
-              {Array.from({ length: 10 }, (_, index) => (
-                <option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
             <div
               onClick={handleDiveInClick}
