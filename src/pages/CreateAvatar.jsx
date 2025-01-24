@@ -23,7 +23,7 @@ const CreateAvatar = () => {
        console.log("Token:", token);
       console.log("Sending payload:", data);
 
-      const response = await axios.patch(`https://precisely-sk-chains-adaptor.trycloudflare.com/user/${userId}`, data,{
+      const response = await axios.patch(`https://api.mlsc.tech/user/${userId}`, data,{
         headers:{
           Authorization: `Bearer ${token}`,
         }

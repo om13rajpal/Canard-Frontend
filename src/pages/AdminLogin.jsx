@@ -61,8 +61,6 @@ export default function AdminLogin() {
             }}
           />
 
-          <LoginNavbar />
-
           <div
             style={{
               width: "100%",

@@ -106,7 +106,7 @@ const Shop = ({ viewingCart, setViewingcart }) => {
     console.log(boughtItems);
 
     try {
-      const res=await axios.patch(`https://precisely-sk-chains-adaptor.trycloudflare.com/team/${teamId}/powerups`,{
+      const res=await axios.patch(`https://api.mlsc.tech/team/${teamId}/powerups`,{
         powerups: boughtItems,
         creditCard: creditCard,
         totalCost: totalCost

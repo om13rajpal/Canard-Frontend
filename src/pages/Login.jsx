@@ -88,7 +88,6 @@ export default function Login() {
             }}
           />
 
-          <LoginNavbar />
 
           <div
             style={{
@@ -143,6 +142,8 @@ export default function Login() {
               textAlign: "center",
             }}
           >
+          <div className="flex flex-col items-center">
+
             <input
               placeholder="USERNAME"
               style={{
@@ -159,7 +160,7 @@ export default function Login() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-            />
+              />
             <input
               type="password"
               id=""
@@ -177,7 +178,8 @@ export default function Login() {
               }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            />
+              />
+              </div>
 
             <div
               onClick={handleDiveInClick}
