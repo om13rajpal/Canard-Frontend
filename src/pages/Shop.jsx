@@ -155,10 +155,6 @@ const Shop = ({ viewingCart, setViewingcart }) => {
     <>
       {/* Background */}
       <div className="w-screen h-screen flex flex-col absolute bg-black">
-        <img
-          src="/back.png"
-          className="absolute opacity-30 w-screen h-screen object-cover"
-        />
         <video
           src="/back.mp4"
           autoPlay
