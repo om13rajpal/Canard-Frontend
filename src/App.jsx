@@ -22,7 +22,6 @@ const App = () => {
   const [viewNavbar, setViewnavbar] = useState(true);
   const [cardPage, setCardPage] = useState(false);
   const location = useLocation();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,7 +57,13 @@ const App = () => {
       navigate("/login");
     }
   }, [location.pathname, navigate]);
-  
+
+  useEffect(() => {
+    const hiddenStat = "/team";
+    if (hiddenStat === location.pathname) {
+      setViewingStats(false);
+    }
+  }, [location.pathname]);
 
   if (loading) {
     return <Loading />;
@@ -73,6 +78,7 @@ const App = () => {
           setViewingStats={setViewingStats}
           viewingCart={viewingCart}
           viewingStats={viewingStats}
+          currentPath={location.pathname} // Passing the current path
         />
       )}
       {viewNavbar && (
@@ -86,11 +92,11 @@ const App = () => {
             path="/avatarCreated"
             element={<Done targetText={"YOUR AVATAR HAS BEEN CREATED"} />}
           />
-          <Route path="/team" element={<Team />} />
+          <Route path="/team" element={<Team viewingStats={viewingStats} />} />
           <Route path="/register" element={<CreateSquad />} />
           <Route path="/addMembers" element={<AddMembers />} />
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/adminLogin" element={<AdminLogin/>}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/adminLogin" element={<AdminLogin />} />
           <Route
             path="/shop"
             element={

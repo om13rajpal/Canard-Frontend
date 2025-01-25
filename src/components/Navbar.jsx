@@ -1,6 +1,6 @@
 import gsap from "gsap";
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = ({
   viewingStats,
@@ -8,9 +8,10 @@ const Navbar = ({
   cardPage,
   viewingCart,
   setViewingCart,
+  currentPath, // Access the current path
 }) => {
-  const navigate = useNavigate();
   const [gif, setGif] = useState("");
+
   useEffect(() => {
     gsap.to("#nav", {
       y: 70,
@@ -20,7 +21,10 @@ const Navbar = ({
     });
 
     setGif(localStorage.getItem("callingCard"));
-  });
+  }, []);
+
+  // Conditionally render the Stats icon only if the current path is not '/team'
+  const showStatsIcon = currentPath !== "/team";
 
   return (
     <nav className="flex absolute z-30 w-full justify-between items-center px-[50px] top-3 translate-y-[-70px]">
@@ -50,20 +54,22 @@ const Navbar = ({
             SHOP
           </p>
         </Link>
-        <img
-          src="/user.png"
-          alt=""
-          className="opacity-80 w-[18px] h-[18px] cursor-pointer"
-          onClick={() => {
-            setViewingStats(!viewingStats);
-          }}
-        />
+        {showStatsIcon && (
+          <img
+            src="/user.png"
+            alt=""
+            className="opacity-80 w-[18px] h-[18px] cursor-pointer"
+            onClick={() => {
+              setViewingStats(!viewingStats);
+            }}
+          />
+        )}
         {cardPage ? (
           <img
             src="/cart.png"
             alt=""
             className="opacity-80 w-[18px] h-[18px] cursor-pointer"
-            onClick={()=>{
+            onClick={() => {
               setViewingCart(!viewingCart);
             }}
           />

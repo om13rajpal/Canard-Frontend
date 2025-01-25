@@ -276,13 +276,13 @@ const Stats = ({ viewingStats }) => {
         autoPlay
         loop
         muted
-        className="w-screen h-screen object-cover"
+        className="w-screen h-screen object-cover "
       />
-      <div className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80">
+      <div className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80 ">
         <img src="/japanese.png" alt="" className="w-[30vw]" id="japanese" />
       </div>
       <div
-        className="font-thaust text-white absolute text-[9.7vw] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
+        className="font-thaust  text-white absolute text-[9.7vw] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
         id="username"
       >
         {username}
@@ -305,7 +305,7 @@ const Stats = ({ viewingStats }) => {
           modelUrl={avatarUrl}
         />
       ) : null}
-      <div className="flex absolute bottom-[25px] left-[50px] z-20 ">
+      <div className="flex  absolute bottom-[25px] left-[50px] z-20 ">
         <div id="emote" className="cursor-pointer">
           <Emote
           key={1}
@@ -355,7 +355,7 @@ const Stats = ({ viewingStats }) => {
         </div>
       </div>
       <div
-        className="flex absolute h-screen justify-evenly items-center top-0 bottom-0 right-7 opacity-80 z-50"
+        className="flex  absolute h-screen justify-evenly items-center top-0 bottom-0 right-7 opacity-80 z-50"
         id="icons"
       >
         <div className="flex flex-col h-[25vh] justify-evenly items-center">
@@ -365,7 +365,7 @@ const Stats = ({ viewingStats }) => {
             className="w-[18px] h-[18px]"
             onClick={shareScreenshot}
           />
-          <img src="/web.png" alt="" className="w-[18px] h-[18px]" onClick={()=>{
+          <img src="/web.png" alt="" className="w-[18px]  h-[18px]" onClick={()=>{
             window.open("https://www.mlsc.tech/")
           }}/>
           <img src="/instagram.png" alt="" className="w-[18px] h-[18px]" onClick={()=>{
@@ -407,7 +407,7 @@ const Stats = ({ viewingStats }) => {
         <Games />
       </div>
 
-      <StatsBorder viewingStats={viewingStats} />
+      <StatsBorder viewingStats={viewingStats}  />
     </div>
   );
 };
