@@ -79,7 +79,7 @@ const Shop = ({ viewingCart, setViewingcart }) => {
 
   const handleAddToCart = (powerUp) => {
     if (boughtItems.includes(powerUp.name)) {
-      setPopupMessage(`${powerUp.name} HAS ALREADY BEEN PURCHASED!`);
+      setPopupMessage(`${powerUp.name.toUpperCase()} HAS ALREADY BEEN PURCHASED!`);
       setShowPopup(true);
       setTimeout(() => setShowPopup(false), 2000);
       return;
