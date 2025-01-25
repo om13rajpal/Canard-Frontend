@@ -89,3 +89,10 @@
 .item8 {
   animation-delay: calc(30s / 8 * (8 - 8) * -1);
 }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevents scrolling */
+  height: 100%;
+}

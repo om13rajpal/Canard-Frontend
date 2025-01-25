@@ -6,7 +6,7 @@ const Emote = ({ width, setAnimationUrl }) => {
       className="flex justify-center items-center border-[2px] border-[#bbbbbb] rounded-[50%] p-2 ml-5 opacity-75"
       onClick={setAnimationUrl}
     >
-      <img src="/hamburger.png" width={width} />
+      <img src="/hamburger.png" width={width}  />
     </div>
   );
 };

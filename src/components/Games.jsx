@@ -38,7 +38,7 @@ const Games = () => {
   }
 
   return (
-    <div className="absolute bottom-[80px] right-0 left-0">
+    <div className="absolute bottom-[80px] right-0 left-0 ">
       <Stats viewingStats={viewingStats}/>
       <div className="wrapper">
         <img
