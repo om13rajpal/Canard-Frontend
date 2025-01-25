@@ -110,7 +110,7 @@ const Stats = ({ viewingStats }) => {
       delay: 0.4,
     });
     gsap.to("#emote", {
-      x: -300,
+      x: "-30vw",
       stagger: 0.15,
       duration: 0.45,
       ease: "power4.out",
@@ -148,13 +148,13 @@ const Stats = ({ viewingStats }) => {
     const usernameTl = gsap.timeline();
 
     usernameTl.to("#username", {
-      y: -330,
+      y: "-36vh",
       duration: 0.5,
       ease: "power3.out",
     });
 
     usernameTl.to("#username", {
-      x: -420,
+      x: "-300px",
       duration: 0.5,
       scale: 0.3,
       ease: "elastic.out",
@@ -163,14 +163,14 @@ const Stats = ({ viewingStats }) => {
     const teamnameTl = gsap.timeline();
 
     teamnameTl.to("#teamname", {
-      y: -310,
+      y: "-33vh",
       duration: 0.5,
       delay: 0.13,
       ease: "power3.out",
     });
 
     teamnameTl.to("#teamname", {
-      x: -280,
+      x: "-212px",
       duration: 0.5,
       scale: 0.35,
       ease: "elastic.out",
@@ -267,10 +267,6 @@ const Stats = ({ viewingStats }) => {
       className="w-screen h-screen flex flex-col absolute bg-black"
       ref={pageRef}
     >
-      {/* <img
-        src="/back.png"
-        className="absolute opacity-30 w-screen h-screen object-cover"
-      /> */}
       <video
         src="/back.mp4"
         autoPlay
@@ -282,16 +278,16 @@ const Stats = ({ viewingStats }) => {
         <img src="/japanese.png" alt="" className="w-[30vw]" id="japanese" />
       </div>
       <div
-        className="font-thaust  text-white absolute text-[9.7vw] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
+        className="font-thaust text-white absolute text-[150px] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
         id="username"
       >
         {username}
       </div>
       <div
-        className="absolute flex items-center bottom-0 top-0 left-[200px] opacity-85"
+        className="absolute flex items-center bottom-0 top-0 left-[170px] opacity-85"
         id="teamname"
       >
-        <p className="font-team text-white text-[7.2vw]  translate-y-[70px] ">
+        <p className="font-team text-white text-[75px]  translate-y-[70px] ">
           {teamName}
         </p>
       </div>

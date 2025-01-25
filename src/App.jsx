@@ -82,7 +82,7 @@ const App = () => {
         />
       )}
       {viewNavbar && (
-        <div className="w-screen h-[1px] bg-white absolute top-[72px] z-20 opacity-45"></div>
+        <div className="w-screen h-[1px] bg-white absolute top-[65px] z-20 opacity-45"></div>
       )}
       <Suspense fallback={<PageLoading />}>
         <Routes>
