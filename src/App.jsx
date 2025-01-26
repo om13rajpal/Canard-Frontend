@@ -53,10 +53,17 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
   
-    if (!token && (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "Members" && location.pathname !== "/adminLogin")) {
+    if (!token && (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/addMembers" && location.pathname !== "/adminLogin")) {
       navigate("/login");
     }
   }, [location.pathname, navigate]);
+
+  useEffect(()=>{
+    const adminToken=localStorage.getItem("admin_token");
+    if(!adminToken && location.pathname==="/register"){
+      navigate("/adminLogin");
+    }
+  },[location.pathname,navigate]);
 
   useEffect(() => {
     const hiddenStat = "/team";

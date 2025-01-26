@@ -14,19 +14,36 @@ function AddMembers() {
   const { state } = useLocation();
   const { squadName } = state || {}; // Safely extract the state
 
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const res1 = await axios.get(`https://api.mlsc.tech/squad/${squadName}/members`);
+        setNames(res1.data.members || []); // Set fetched members to state
+      } catch (error) {
+        console.error("Error fetching squad members:", error);
+      }
+    };
+
+    fetchMembers();
+  }, [squadName]);
+  
+
   const handleAddMember = async () => {
     if (currentPassword.length < 5) {
       alert("Password should be atleast 5 characters long");
       return;
     }
-    if (currentName.trim() !== "") {
-      const updatedNames = [...names, currentName];
-      setNames(updatedNames);
-      setCurrentName("");
+    if(currentName.trim() === "" || currentEmail.trim() === "" || currentPassword.trim() === ""){
+      alert("Please fill all the fields");
+      return;
+    }
+    if (res1.status === 200) {
+      // Member added successfully to the server
+      setNames((prevNames) => [...prevNames, currentName]); // Update local state
+      setCurrentName(""); // Clear input field
 
-      if (updatedNames.length === 4) {
-        console.log(names);
-        setShowCompletionMessage(true);
+      if (names.length + 1 === 4) {
+        setShowCompletionMessage(true); // Show completion message when 4 members are added
       } else {
         setShowCompletionMessage(false);
       }

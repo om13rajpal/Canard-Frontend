@@ -25,7 +25,11 @@ export default function AdminLogin() {
         }
       });
       console.log(res.data);
-      navigate("/");
+      if(res.status===200 && res.data.data.token){
+        navigate("/register");
+        localStorage.setItem("admin_token", res.data.data.token);
+
+      }
     } catch (error) {
       console.log(error.response.data.message);
       setPopupMessage(error.response.data.message.toUpperCase());
