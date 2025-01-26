@@ -56,7 +56,7 @@ const Stats = ({ viewingStats }) => {
 
   useEffect(()=>{
     fetchData();
-  })
+  }, [])
 
   async function fetchData(){
     const token = localStorage.getItem("token")

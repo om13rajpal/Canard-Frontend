@@ -1,8 +1,16 @@
 import gsap from "gsap";
 import React, { useEffect } from "react";
 
-const Stats = ({ viewingStats }) => {
+const Stats = ({ viewingStats, stats, game }) => {
+  console.log(stats);
   if (viewingStats) {
+    gsap.to("#stats", {
+      opacity: 1,
+      duration: 1.5,
+      ease: "power4.out",
+      delay: 0.5,
+    });
+
     gsap.to("#bottom_line_stats", {
       y: "0px",
       duration: 1.5,
@@ -88,7 +96,7 @@ const Stats = ({ viewingStats }) => {
 
     gsap.to("#pta_nai_7", {
       x: "0px",
-        y: "-1.9vh",
+      y: "-1.9vh",
       rotation: -305,
       duration: 1.5,
       ease: "power4.out",
@@ -97,13 +105,20 @@ const Stats = ({ viewingStats }) => {
 
     gsap.to("#pta_nai_8", {
       x: 0,
-        y: "-0.5vh",
+      y: "-0.5vh",
       rotation: 305,
       duration: 1.5,
       ease: "power4.out",
       delay: 0.5,
     });
   } else {
+    gsap.to("#stats", {
+      opacity: 0,
+      duration: 1.5,
+      ease: "power4.out",
+      delay: 0.5,
+    });
+
     gsap.to("#bottom_line_stats", {
       y: "65vw",
       duration: 1.5,
@@ -258,6 +273,20 @@ const Stats = ({ viewingStats }) => {
         className="w-[8vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[49px] right-[32.6vw] translate-x-[-65vw]"
         id="pta_nai_8"
       ></div>
+      {Object.keys(stats).length === 0 ? (
+        <h1>Stats not available</h1>
+      ) : (
+        <div className="absolute bottom-[15vw] text-white opacity-0" id="stats">
+          <h1>{game}</h1>
+          {Object.keys(stats[game]).map((key) => (
+            <div key={key}>
+              <p>
+                {stats[game][key].title}: {stats[game][key].value}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
