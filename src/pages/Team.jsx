@@ -103,7 +103,7 @@ const Team = () => {
         </div>
       </div>
       <div className="flex absolute bottom-[25px] left-[50px] z-30">
-        <div id="emote">
+        <div id="emote" className="hidden -z-50">
           <Emote
             width={"17px"}
             setAnimationUrl={() => {
@@ -111,7 +111,7 @@ const Team = () => {
             }}
           />
         </div>
-        <div id="emote">
+        <div id="emote" className="hidden -z-50">
           <Emote
             width={"17px"}
             setAnimationUrl={() => {
@@ -119,7 +119,7 @@ const Team = () => {
             }}
           />
         </div>
-        <div id="emote">
+        <div id="emote" className="hidden -z-50">
           <Emote
             width={"17px"}
             setAnimationUrl={() => {
@@ -127,7 +127,7 @@ const Team = () => {
             }}
           />
         </div>
-        <div id="emote">
+        <div id="emote" className="hidden -z-50">
           <Emote
             width={"17px"}
             setAnimationUrl={() => {

@@ -58,6 +58,13 @@ const App = () => {
     }
   }, [location.pathname, navigate]);
 
+  useEffect(()=>{
+    const adminToken=localStorage.getItem("admin_token");
+    if(!adminToken && location.pathname==="/register"){
+      navigate("/adminLogin");
+    }
+  },[location.pathname,navigate]);
+
   useEffect(() => {
     const hiddenStat = "/team";
     if (hiddenStat === location.pathname) {
