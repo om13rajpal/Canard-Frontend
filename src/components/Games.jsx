@@ -2,7 +2,7 @@ import gsap from "gsap";
 import React, { useState } from "react";
 import Stats from "./Stats";
 
-const Games = () => {
+const Games = ({stats}) => {
   const [viewingStats, setViewingStats] = useState(false);
   function handleMouseEnter() {
     gsap.to("#fortnite", {

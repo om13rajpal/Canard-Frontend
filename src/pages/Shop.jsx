@@ -14,68 +14,68 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   const token = localStorage.getItem("token");
   const teamId = localStorage.getItem("teamId");
 
-    const powerUps = [
-      {
-        name: "Power Up 1",
-        price: 200,
-        description: "Boosts attack speed by 10%",
-        image: "/powerup/1",
-      },
-      {
-        name: "Power Up 2",
-        price: 300,
-        description: "Enhances health regeneration by 15%",
-        image: "/powerup/2",
-      },
-      {
-        name: "Power Up 3",
-        price: 400,
-        description: "Increases defense by 20%",
-        image: "/powerup/3",
-      },
-      {
-        name: "Power Up 4",
-        price: 250,
-        description: "Improves stamina recovery by 25%",
-        image: "/powerup/4",
-      },
-      {
-        name: "Power Up 5",
-        price: 350,
-        description: "Boosts movement speed by 30%",
-        image: "/powerup/5",
-      },
-      {
-        name: "Power Up 6",
-        price: 450,
-        description: "Increases jump height by 35%",
-        image: "/powerup/6",
-      },
-      {
-        name: "Power Up 7",
-        price: 500,
-        description: "Enhances all stats by 40%",
-        image: "/powerup/7",
-      },
-      {
-        name: "Power Up 8",
-        price: 600,
-        description: "Unlocks all achievements",
-        image: "/powerup/8",
-      },
-      {
-        name: "Power Up 9",
-        price: 700,
-        description: "Grants invincibility for 10 seconds",
-        image: "/powerup/9",
-      },
-      {
-        name: "Power Up 10",
-        price: 800,
-        description: "Grants unlimited ammo for 15 seconds",
-        image: "/powerup/10",
-      },
-    ];
+  const powerUps = [
+    {
+      name: "TIME DECREE I",
+      price: 200,
+      description: "Add or decrease 2 minutes from your time",
+      image: "/powerup/1",
+    },
+    {
+      name: "TIME DECREE II",
+      price: 300,
+      description: "Add or decrease 4 minutes from your time",
+      image: "/powerup/2",
+    },
+    {
+      name: "FORCED FATE",
+      price: 400,
+      description: "Any other team will have to perform a minor task once again",
+      image: "/powerup/3",
+    },
+    {
+      name: "BREACH'EM",
+      price: 250,
+      description: "View any team's progress",
+      image: "/powerup/4",
+    },
+    {
+      name: "WHITE FLAG",
+      price: 350,
+      description: "Skip a major task and mark it completed with a fixed time of 5 minutes",
+      image: "/powerup/5",
+    },
+    {
+      name: "REVERSE ASPIRIN I",
+      price: 450,
+      description: "Skip a minor task but reduce HP of left hand and right hand",
+      image: "/powerup/6",
+    },
+    {
+      name: "REVERSE ASPIRIN II",
+      price: 500,
+      description: "Decrease the HP of left hand and right hand by 100",
+      image: "/powerup/7",
+    },
+    {
+      name: "MYSTERIO",
+      price: 600,
+      description: "Gain a random power-up",
+      image: "/powerup/8",
+    },
+    {
+      name: "GOBLIN",
+      price: 700,
+      description: "Steal any other team's power-up",
+      image: "/powerup/9",
+    },
+    {
+      name: "POWER UP 10",
+      price: 800,
+      description: "Grants unlimited ammo for 15 seconds",
+      image: "/powerup/10",
+    },
+  ];  
 
   const handleAddToCart = (powerUp) => {
     if (boughtItems.includes(powerUp.name)) {

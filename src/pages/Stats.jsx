@@ -12,6 +12,7 @@ const Stats = ({ viewingStats }) => {
   const [username, setUserName] = useState("");
   const [teamName, setTeamName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [statsData, setStatsData] = useState([]);
 
   console.log(username, teamName, avatarUrl);
 
@@ -63,14 +64,19 @@ const Stats = ({ viewingStats }) => {
     const userId = localStorage.getItem("userId");
     const response = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    const stateRes = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    const statsData = await stateRes.data;
     const data = await response.data;
-    console.log(data);
-    console.log(data.data.user.username);
-    console.log(data.data.user.teamName);
-    console.log(data.data.user.avatar);
+    setStatsData(statsData.data.user.gameStats)
 
     setUserName(data.data.user.username);
     setTeamName(data.data.user.teamName);
@@ -431,7 +437,7 @@ const Stats = ({ viewingStats }) => {
         COPYRIGHT © 2024 RESERVED FOR <i className="text-white">MLSC</i>
       </div>
       <div id="games" className="opacity-0">
-        <Games />
+        <Games stats={statsData}/>
       </div>
 
       <StatsBorder viewingStats={viewingStats} />
