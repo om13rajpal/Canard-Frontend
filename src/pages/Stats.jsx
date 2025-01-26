@@ -17,6 +17,7 @@ const Stats = ({ viewingStats }) => {
 
   const scrollRef = useRef();
   const pageRef = useRef();
+  const [scrollPaused, setScrollPaused] = useState(false);
 
   async function captureScreenshot() {
     if (pageRef.current) {
@@ -53,27 +54,27 @@ const Stats = ({ viewingStats }) => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchData();
-  })
+  }, []);
 
-  async function fetchData(){
-    const token = localStorage.getItem("token")
-    const userId = localStorage.getItem("userId")
+  async function fetchData() {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
     const response = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await response.data;
-    console.log(data)
-    console.log(data.data.user.username)
-    console.log(data.data.user.teamName)
-    console.log(data.data.user.avatar)
+    console.log(data);
+    console.log(data.data.user.username);
+    console.log(data.data.user.teamName);
+    console.log(data.data.user.avatar);
 
-    setUserName(data.data.user.username)
-    setTeamName(data.data.user.teamName)
-    setAvatarUrl(data.data.user.avatar)
+    setUserName(data.data.user.username);
+    setTeamName(data.data.user.teamName);
+    setAvatarUrl(data.data.user.avatar);
   }
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const Stats = ({ viewingStats }) => {
     let animationFrame;
 
     const scroll = () => {
-      if (scrollElement) {
+      if (scrollElement && !scrollPaused) {
         scrollElement.scrollLeft += scrollSpeed;
 
         if (
@@ -101,7 +102,23 @@ const Stats = ({ viewingStats }) => {
     scroll();
 
     return () => cancelAnimationFrame(animationFrame);
-  }, []);
+  }, [scrollPaused]);
+
+  const pauseScroll = () => {
+    setScrollPaused(true);
+  };
+
+  const resumeScroll = () => {
+    setScrollPaused(false);
+  };
+
+  const handleMouseEnter = () => {
+    pauseScroll();
+  };
+
+  const handleMouseLeave = () => {
+    resumeScroll();
+  };
 
   if (viewingStats) {
     gsap.to("#games", {
@@ -264,7 +281,7 @@ const Stats = ({ viewingStats }) => {
 
   return (
     <div
-      className="w-screen h-screen flex flex-col absolute bg-black"
+      className="w-screen h-screen flex flex-col absolute bg-black "
       ref={pageRef}
     >
       <video
@@ -274,7 +291,9 @@ const Stats = ({ viewingStats }) => {
         muted
         className="w-screen h-screen object-cover "
       />
-      <div className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80 ">
+      <div
+        className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80 "
+      >
         <img src="/japanese.png" alt="" className="w-[30vw]" id="japanese" />
       </div>
       <div
@@ -287,9 +306,7 @@ const Stats = ({ viewingStats }) => {
         className="absolute flex items-center bottom-0 top-0 left-[170px] opacity-85"
         id="teamname"
       >
-        <p className="font-team text-white text-[75px]  translate-y-[70px] ">
-          {teamName}
-        </p>
+        <p className="font-team text-white text-[75px]  translate-y-[70px] ">{teamName}</p>
       </div>
       {avatarUrl ? (
         <AvatarCanvas
@@ -301,10 +318,15 @@ const Stats = ({ viewingStats }) => {
           modelUrl={avatarUrl}
         />
       ) : null}
-      <div className="flex  absolute bottom-[25px] left-[50px] z-20 ">
+      <div
+        className="flex  absolute bottom-[25px] left-[50px] z-20 "
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        ref={scrollRef}
+      >
         <div id="emote" className="cursor-pointer">
           <Emote
-          key={1}
+            key={1}
             width={"17px"}
             setAnimationUrl={() => {
               const animationUrl = "/drunk.fbx";
@@ -314,17 +336,17 @@ const Stats = ({ viewingStats }) => {
         </div>
         <div id="emote" className="cursor-pointer">
           <Emote
-          key={2}
+            key={2}
             width={"17px"}
             setAnimationUrl={() => {
               setAnimationUrl("/shout.fbx");
-              console.log(animationUrl)
+              console.log(animationUrl);
             }}
           />
         </div>
         <div id="emote" className="cursor-pointer">
           <Emote
-          key={3}
+            key={3}
             width={"17px"}
             setAnimationUrl={() => {
               setAnimationUrl("/fight.fbx");
@@ -333,7 +355,7 @@ const Stats = ({ viewingStats }) => {
         </div>
         <div id="emote" className="cursor-pointer">
           <Emote
-          key={4}
+            key={4}
             width={"17px"}
             setAnimationUrl={() => {
               setAnimationUrl("/punch.fbx");
@@ -342,7 +364,7 @@ const Stats = ({ viewingStats }) => {
         </div>
         <div id="emote" className="cursor-pointer">
           <Emote
-          key={5}
+            key={5}
             width={"17px"}
             setAnimationUrl={() => {
               setAnimationUrl("/punch.fbx");
@@ -361,12 +383,22 @@ const Stats = ({ viewingStats }) => {
             className="w-[18px] h-[18px]"
             onClick={shareScreenshot}
           />
-          <img src="/web.png" alt="" className="w-[18px]  h-[18px]" onClick={()=>{
-            window.open("https://www.mlsc.tech/")
-          }}/>
-          <img src="/instagram.png" alt="" className="w-[18px] h-[18px]" onClick={()=>{
-            window.open("https://www.instagram.com/mlsc_db")
-          }}/>
+          <img
+            src="/web.png"
+            alt=""
+            className="w-[18px]  h-[18px]"
+            onClick={() => {
+              window.open("https://www.mlsc.tech/");
+            }}
+          />
+          <img
+            src="/instagram.png"
+            alt=""
+            className="w-[18px] h-[18px]"
+            onClick={() => {
+              window.open("https://www.instagram.com/mlsc_db");
+            }}
+          />
         </div>
       </div>
       <div
@@ -386,11 +418,10 @@ const Stats = ({ viewingStats }) => {
         id="lorem"
       >
         <p className=" text-[#b3b3b3] flex justify-center font-thin text-[8px] w-[35vw] text-center">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum
-          placeat voluptatem, quasi dolorum reprehenderit consequatur ad
-          provident error dolore maiores commodi mollitia cupiditate. Libero hic
-          nulla minima quasi maxime quo praesentium fuga repellendus quia esse,
-          molestias accusamus sapiente eius nobis?
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum placeat
+          voluptatem, quasi dolorum reprehenderit consequatur ad provident error dolore
+          maiores commodi mollitia cupiditate. Libero hic nulla minima quasi maxime quo
+          praesentium fuga repellendus quia esse, molestias accusamus sapiente eius nobis?
         </p>
       </div>
       <div
@@ -403,7 +434,7 @@ const Stats = ({ viewingStats }) => {
         <Games />
       </div>
 
-      <StatsBorder viewingStats={viewingStats}  />
+      <StatsBorder viewingStats={viewingStats} />
     </div>
   );
 };

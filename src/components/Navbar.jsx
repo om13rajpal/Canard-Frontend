@@ -36,8 +36,10 @@ const Navbar = ({
     </>
   }
 
+  else{
 
-  return (
+    
+    return (
     <nav className="flex absolute z-30 w-full justify-between items-center px-[50px] top-3 translate-y-[-70px]">
       <img
         src={gif ? gif : null}
@@ -47,7 +49,7 @@ const Navbar = ({
           aspectRatio: "2/1",
         }}
         id="nav"
-      />
+        />
       <div className="absolute top-0 bottom-0 right-0 left-0 flex justify-center items-center">
         <Link to={"/"}>
           <img src="/logo.png" id="nav" className="w-[210px] h-[25px]" />
@@ -73,13 +75,13 @@ const Navbar = ({
             onClick={() => {
               setViewingStats(!viewingStats);
             }}
-          />
-        )}
+            />
+          )}
         {cardPage ? (
           <img
-            src="/cart.png"
-            alt=""
-            className="opacity-80 w-[18px] h-[18px] cursor-pointer"
+          src="/cart.png"
+          alt=""
+          className="opacity-80 w-[18px] h-[18px] cursor-pointer"
             onClick={() => {
               setViewingCart(!viewingCart);
             }}
@@ -99,5 +101,6 @@ const Navbar = ({
     </nav>
   );
 };
+}
 
 export default Navbar;
