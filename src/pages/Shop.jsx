@@ -128,6 +128,14 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   };
 
   useEffect(() => {
+
+    gsap.to("#powerups", {
+      y: 20,
+      duration: 1,
+      yoyo: true,
+      ease: "power1.inOut",
+      repeat: -1,
+    })
     if (viewingCart) {
       gsap.to("#cart", {
         x: 0,
