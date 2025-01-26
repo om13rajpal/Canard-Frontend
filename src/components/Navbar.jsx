@@ -24,7 +24,18 @@ const Navbar = ({
   }, []);
 
   // Conditionally render the Stats icon only if the current path is not '/team'
-  const showStatsIcon = currentPath !== "/team";
+  const showStatsIcon = currentPath !== "/team" && currentPath !== "/login";
+
+  if (currentPath === "/login" || currentPath === "/register" || currentPath === "/adminLogin" || currentPath === "/addMembers") {
+    return <>
+      <div className="absolute -top-12 z-50 right-0 left-0 flex justify-center items-center">
+        <Link to={"/"}>
+          <img src="/logo.png" id="nav" className="w-[210px] h-[25px]" />
+        </Link>
+      </div>
+    </>
+  }
+
 
   return (
     <nav className="flex absolute z-30 w-full justify-between items-center px-[50px] top-3 translate-y-[-70px]">

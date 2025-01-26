@@ -28,7 +28,7 @@ export default function AdminLogin() {
       navigate("/");
     } catch (error) {
       console.log(error.response.data.message);
-      setPopupMessage(error.response.data.message);
+      setPopupMessage(error.response.data.message.toUpperCase());
       setShowPopup(true);
       if (!error.response.data.status) {
         return;
