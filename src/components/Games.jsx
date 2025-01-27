@@ -6,6 +6,11 @@ const Games = ({ stats }) => {
   const [viewingStats, setViewingStats] = useState(false);
   const [game, setGame] = useState("bgmi");
   function handleMouseEnter(game) {
+    // Pause the animations for all items
+    const items = document.querySelectorAll(".item");
+    items.forEach((item) => item.classList.add("paused"));
+
+    // Apply the hover effect to the specific item
     gsap.to(`#${game}`, {
       opacity: 0.5,
       scale: 1.3,
@@ -22,7 +27,13 @@ const Games = ({ stats }) => {
     setViewingStats(true);
     setGame(game);
   }
+
   function handleMouseLeave(game) {
+    // Resume the animations for all items
+    const items = document.querySelectorAll(".item");
+    items.forEach((item) => item.classList.remove("paused"));
+
+    // Revert the hover effect for the specific item
     gsap.to(`#${game}`, {
       opacity: 1,
       scale: 1,
