@@ -64,42 +64,49 @@ const Games = ({ stats }) => {
         <img
           className="item item2 opacity-80"
           src="/games/csgo.png"
+          id="csgoFullTeam"
           onMouseEnter={() => handleMouseEnter("csgoFullTeam")}
           onMouseLeave={() => handleMouseLeave("csgoFullTeam")}
         />
         <img
           className="item item3 opacity-80"
           src="/games/forza.png"
+          id="forzaHorizon"
           onMouseEnter={() => handleMouseEnter("forzaHorizon")}
           onMouseLeave={() => handleMouseLeave("forzaHorizon")}
         />
         <img
           className="item item4 opacity-80"
           src="/games/rl.png"
+          id="rocketLeague"
           onMouseEnter={() => handleMouseEnter("rocketLeague")}
           onMouseLeave={() => handleMouseLeave("rocketLeague")}
         />
         <img
           className="item item5 opacity-80"
           src="/games/tekken8.png"
+          id="tekken8"
           onMouseEnter={() => handleMouseEnter("tekken8")}
           onMouseLeave={() => handleMouseLeave("tekken8")}
         />
         <img
           className="item item6 opacity-80"
           src="/games/wwe.png"
+          id="wwe"
           onMouseEnter={() => handleMouseEnter("wwe")}
           onMouseLeave={() => handleMouseLeave("wwe")}
         />
         <img
           className="item item7 opacity-80"
           src="/games/gtav.png"
+          id="gtaSanAndreas"
           onMouseEnter={() => handleMouseEnter("gtaSanAndreas")}
           onMouseLeave={() => handleMouseLeave("gtaSanAndreas")}
         />
         <img
           className="item item8 opacity-80"
           src="/games/mini.png"
+          id="miniMilitia"
           onMouseEnter={() => handleMouseEnter("miniMilitia")}
           onMouseLeave={() => handleMouseLeave("miniMilitia")}
         />

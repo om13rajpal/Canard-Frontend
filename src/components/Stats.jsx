@@ -221,55 +221,55 @@ const Stats = ({ viewingStats, stats, game }) => {
   return (
     <div className="flex w-screen justify-center items-center translate-y-[60px]">
       <div
-        className="w-[22.2vw] h-[1px] bg-white absolute bottom-[-2.5px] translate-y-[-65vw]"
+        className="w-[22.2vw] h-[1px] bg-white absolute bottom-[-0.3vh] translate-y-[-65vw]"
         id="bottom_line_stats"
       ></div>
       <div
-        className="w-[4.6vw] h-[1px] bg-white absolute bottom-[13vw] left-[38.9vw] translate-x-[-65vw]"
+        className="w-[4.6vw] h-[1px] bg-white absolute bottom-[27.4vh] left-[38.9vw] translate-x-[-65vw]"
         id="top_line_1"
       ></div>
       <div
-        className="w-[4.6vw] h-[1px] bg-white absolute bottom-[13vw] right-[38.9vw] translate-x-[65vw]"
+        className="w-[4.6vw] h-[1px] bg-white absolute bottom-[27.4vh] right-[38.9vw] translate-x-[65vw]"
         id="top_line_2"
       ></div>
       <div
-        className="w-[10.8vw] h-[1px] bg-white absolute bottom-[11.4vw] translate-x-[-65vw]"
+        className="w-[10.8vw] h-[1px] bg-white absolute bottom-[24.1vh] translate-x-[-65vw]"
         id="top_sub_1"
       ></div>
       <div
-        className="w-[10.8vw] h-[1px] bg-white absolute bottom-[14.6vw] translate-x-[-65vw]"
+        className="w-[10.8vw] h-[1px] bg-white absolute bottom-[30.7vh] translate-x-[-65vw]"
         id="top_sub_2"
       ></div>
       <div
-        className="w-[8vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[49px] left-[32.6vw] translate-x-[-65vw]"
+        className="w-[8vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[6.1vh] left-[32.6vw] translate-x-[-65vw]"
         id="pta_nai_1"
       ></div>
       <div
-        className="w-[2vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[12.2vw] left-[43vw] translate-x-[-65vw]"
+        className="w-[2vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[25.7vh] left-[43vw] translate-x-[-65vw]"
         id="pta_nai_2"
       ></div>
       <div
-        className="w-[2vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[13.8vw] left-[43vw] translate-x-[-65vw]"
+        className="w-[2vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[29vh] left-[43vw] translate-x-[-65vw]"
         id="pta_nai_3"
       ></div>
       <div
-        className="w-[2vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[13.8vw] right-[43vw] translate-x-[-65vw]"
+        className="w-[2vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[29vh] right-[43vw] translate-x-[-65vw]"
         id="pta_nai_4"
       ></div>
       <div
-        className="w-[2vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[12.2vw] right-[43vw] translate-x-[-65vw]"
+        className="w-[2vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[25.7vh] right-[43vw] translate-x-[-65vw]"
         id="pta_nai_5"
       ></div>
       <div
-        className="w-[8vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[150px] left-[32.6vw] translate-x-[-65vw]"
+        className="w-[8vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[18.5vh] left-[32.6vw] translate-x-[-65vw]"
         id="pta_nai_6"
       ></div>
       <div
-        className="w-[8vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[150px] right-[32.6vw] translate-x-[-65vw]"
+        className="w-[8vw] h-[1px] bg-white rotate-[55deg] absolute bottom-[18.5vh] right-[32.6vw] translate-x-[-65vw]"
         id="pta_nai_7"
       ></div>
       <div
-        className="w-[8vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[49px] right-[32.6vw] translate-x-[-65vw]"
+        className="w-[8vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[6.1vh] right-[32.6vw] translate-x-[-65vw]"
         id="pta_nai_8"
       ></div>
       {!stats || Object.keys(stats).length === 0 ? (
