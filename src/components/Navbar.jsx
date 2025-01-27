@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = ({
   viewingStats,
@@ -22,6 +22,8 @@ const Navbar = ({
 
     setGif(localStorage.getItem("callingCard"));
   }, []);
+
+  const navigate = useNavigate();
 
   // Conditionally render the Stats icon only if the current path is not '/team'
   const showStatsIcon = currentPath !== "/team" && currentPath !== "/login" && currentPath!=="/shop";
@@ -56,7 +58,7 @@ const Navbar = ({
       <div className="opacity-80 w-[25vw] flex justify-evenly" id="nav">
         <Link
           className="text-white font-alien font-thin tracking-[1.2px] text-[14px]"
-          to={"/team"}
+          to={"/team"} 
         >
           TEAM
         </Link>

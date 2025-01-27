@@ -2,7 +2,6 @@ import gsap from "gsap";
 import React, { useEffect } from "react";
 
 const Stats = ({ viewingStats, stats, game }) => {
-  console.log(stats);
   if (viewingStats) {
     gsap.to("#stats", {
       opacity: 1,
@@ -273,7 +272,7 @@ const Stats = ({ viewingStats, stats, game }) => {
         className="w-[8vw] h-[1px] bg-white -rotate-[55deg] absolute bottom-[49px] right-[32.6vw] translate-x-[-65vw]"
         id="pta_nai_8"
       ></div>
-      {Object.keys(stats).length === 0 ? (
+      {!stats || Object.keys(stats).length === 0 ? (
         <h1>Stats not available</h1>
       ) : (
         <div className="absolute bottom-[15vw] text-white opacity-0" id="stats">
