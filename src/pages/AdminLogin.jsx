@@ -11,15 +11,14 @@ export default function AdminLogin() {
   const navigate = useNavigate();
 
 
-  const token = localStorage.getItem("token") || null;
-  const adminToken = localStorage.getItem("admin_token") || null;
+  const token = localStorage.getItem("token");
+  const adminToken = localStorage.getItem("admin_token");
   useEffect(() => {
-    const adminToken = localStorage.getItem("admin_token");
     if (adminToken) {
       // Redirect to /register if already logged in
       navigate("/register");
     }
-  }, [adminToken]);
+  }, [adminToken, navigate]);
   
   
 

@@ -294,7 +294,6 @@ const Stats = ({ viewingStats }) => {
       className="w-screen h-screen flex flex-col absolute bg-black "
       ref={pageRef}
     >
-      <Navbar />
       
       <video
         src="/back.mp4"

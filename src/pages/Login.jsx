@@ -50,6 +50,7 @@ export default function Login() {
         navigate("/", {
           state: { username, token, teamId },  // Pass token and teamId here as well
         });
+        window.location.reload();
       }
     } catch (error) {
       console.log(error.response?.data?.message);

@@ -78,9 +78,11 @@ const App = () => {
   if (loading) {
     return <Loading />;
   }
+  
 
   return (
     <div className="m-0 p-0 box-border bg-[#101010]">
+        {viewNavbar  && (
         <Navbar
           cardPage={cardPage}
           setViewingCart={setViewingCart}
@@ -89,6 +91,7 @@ const App = () => {
           viewingStats={viewingStats}
           currentPath={location.pathname} // Passing the current path
         />
+      )}
       
       {viewNavbar && (
         <div className="w-screen h-[1px] bg-white absolute top-[65px] z-20 opacity-45"></div>
