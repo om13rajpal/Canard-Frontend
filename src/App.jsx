@@ -40,7 +40,7 @@ const App = () => {
     }
   }, [location.pathname]);
 
-  useEffect(() => {
+    useEffect(() => {
     const hiddenNavbarPaths = ["/createAvatar", "/register"];
 
     if (hiddenNavbarPaths.includes(location.pathname)) {
