@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Games from "../components/Games";
 import { toPng } from "html-to-image";
 import axios from "axios";
+import Navbar from "../components/Navbar";
 
 const Stats = ({ viewingStats }) => {
   const [animationUrl, setAnimationUrl] = useState("/dancee.fbx");
@@ -287,10 +288,12 @@ const Stats = ({ viewingStats }) => {
   }
 
   return (
+    
     <div
       className="w-screen h-screen flex flex-col absolute bg-black "
       ref={pageRef}
     >
+      
       <video
         src="/back.mp4"
         autoPlay
