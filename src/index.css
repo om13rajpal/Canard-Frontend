@@ -58,6 +58,7 @@
   animation-iteration-count: infinite;
 }
 
+
 .item1 {
   animation-delay: calc(30s / 8 * (8 - 1) * -1);
 }

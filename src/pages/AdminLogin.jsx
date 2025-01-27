@@ -10,13 +10,21 @@ export default function AdminLogin() {
   const [popupMessage, setPopupMessage] = useState("");
 
   const token = localStorage.getItem("token");
+  useEffect(() => {
+    const adminToken = localStorage.getItem("admin_token");
+    if (adminToken) {
+      // Redirect to /register if already logged in
+      navigate("/register");
+    }
+  }, [navigate]);
+  
   
 
   const navigate = useNavigate();
   let res;
   const handleDiveInClick = async () => {
     try {
-      res = await axios.post("https://api.mlsc.tech/admin/login", {
+      res = await axios.post("https://x5phqdm7-4140.inc1.devtunnels.ms/admin/login", {
         username: username,
         password: password,
       },{
@@ -24,12 +32,17 @@ export default function AdminLogin() {
           Authorization: `Bearer ${token}`,
         }
       });
-      console.log(res.data);
-      if(res.status===200 && res.data.data.token){
-        navigate("/register");
-        localStorage.setItem("admin_token", res.data.data.token);
+      
 
+      if (res.status===401 || res.status===403) {
+        alert("Unauthorized");
+        navigate("/adminLogin");
+        return;
       }
+      console.log(res);
+  
+      localStorage.setItem("admin_token", res.data.data.token);
+      navigate("/register");
     } catch (error) {
       console.log(error.response.data.message);
       setPopupMessage(error.response.data.message.toUpperCase());
