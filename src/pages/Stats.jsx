@@ -77,6 +77,7 @@ const Stats = ({ viewingStats }) => {
     const statsData = await stateRes.data;
     const data = await response.data;
     setStatsData(statsData.data.user.gameStats)
+    console.log(statsData.data.user.gameStats);
 
     setUserName(data.data.user.username);
     setTeamName(data.data.user.teamName);
