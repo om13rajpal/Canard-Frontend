@@ -14,6 +14,7 @@ const Stats = ({ viewingStats }) => {
   const [teamName, setTeamName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [statsData, setStatsData] = useState([]);
+  
 
   console.log(username, teamName, avatarUrl);
 
@@ -293,6 +294,7 @@ const Stats = ({ viewingStats }) => {
       className="w-screen h-screen flex flex-col absolute bg-black "
       ref={pageRef}
     >
+      <Navbar />
       
       <video
         src="/back.mp4"
