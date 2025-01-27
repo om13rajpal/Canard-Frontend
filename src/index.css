@@ -93,6 +93,10 @@
 body, html {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevents scrolling */
+  overflow: hidden;
   height: 100%;
+}
+
+.paused {
+  animation-play-state: paused !important;
 }

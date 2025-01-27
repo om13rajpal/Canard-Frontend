@@ -276,15 +276,18 @@ const Stats = ({ viewingStats, stats, game }) => {
       {Object.keys(stats).length === 0 ? (
         <h1>Stats not available</h1>
       ) : (
-        <div className="absolute bottom-[15vw] text-white opacity-0" id="stats">
-          <h1>{game}</h1>
+        <div className="absolute bottom-0 text-white opacity-0 left-0 right-0" id="stats">
+          <h1 className="absolute bottom-[210px] text-white font-thaust text-[16px] text-center w-screen left-0 right-0 uppercase">{game}</h1>
+          <div className="absolute bottom-[30px]">
           {Object.keys(stats[game]).map((key) => (
-            <div key={key}>
+            <div key={key} className="flex w-screen justify-center items-center font-alien uppercase text-center py-[2px]">
               <p>
                 {stats[game][key].title}: {stats[game][key].value}
               </p>
             </div>
           ))}
+          </div>
+          
         </div>
       )}
     </div>
