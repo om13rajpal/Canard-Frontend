@@ -31,12 +31,12 @@ const Stats = ({ viewingStats, stats, game }) => {
           id="stats"
           style={{
             backgroundImage: "url('/stats.png')",
-            backgroundSize: "contain", // Ensure the image fits within the div
+            backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center", // Center the image
+            backgroundPosition: "center",
           }}
         >
-          <h1 className=" translate-y-[110px] -translate-x-6 text-xl font-bold self-start w-[500px] text-center">{game}</h1>
+          <h1 className=" translate-y-[113px] -translate-x-6 text-xl font-bold self-start w-[500px] text-center">{game}</h1>
           <div className="flex flex-col w-full h-full justify-center items-center">
             {Object.keys(stats[game]).map((key) => (
               <div key={key} className="w-full text-center">
