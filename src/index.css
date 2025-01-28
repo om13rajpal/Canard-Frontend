@@ -150,7 +150,7 @@ body, html {
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 360px) {
   .greenBack {
     height: 1000px !important;
     width: 100vw;
