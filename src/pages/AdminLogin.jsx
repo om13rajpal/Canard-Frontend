@@ -9,18 +9,18 @@ export default function AdminLogin() {
   const [popupMessage, setPopupMessage] = useState("");
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("token") || null;
-  const adminToken = localStorage.getItem("admin_token") || null;
-  console.log(adminToken);
+  const token = localStorage.getItem("token");
+  const adminToken = localStorage.getItem("admin_token");
   useEffect(() => {
-    if ((adminToken != undefined) && adminToken) {
-      console.log("Admin token exists");
+    if (adminToken) {
       // Redirect to /register if already logged in
       navigate("/register");
     } else {
       navigate("/adminLogin");
     }
-  }, [adminToken]);
+  }, [adminToken, navigate]);
+  
+  
 
   let res;
   const handleDiveInClick = async () => {
