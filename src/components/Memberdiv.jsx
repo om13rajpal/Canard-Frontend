@@ -2,7 +2,7 @@ import React from "react";
 
 function MemberDiv({ memberName }) {
   return (
-    <div
+    <div className="translate-y-[-6.5vh]"
       style={{
         position: "relative",
         width: "300px",

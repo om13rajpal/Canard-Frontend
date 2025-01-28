@@ -14,6 +14,7 @@ const Stats = ({ viewingStats }) => {
   const [teamName, setTeamName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [statsData, setStatsData] = useState([]);
+
   
 
   console.log(username, teamName, avatarUrl);
@@ -343,6 +344,7 @@ const Stats = ({ viewingStats }) => {
               const animationUrl = "/drunk.fbx";
               setAnimationUrl(animationUrl);
             }}
+            imgSrc={"/number-one.png"}
           />
         </div>
         <div id="emote" className="cursor-pointer">
@@ -353,6 +355,7 @@ const Stats = ({ viewingStats }) => {
               setAnimationUrl("/shout.fbx");
               console.log(animationUrl);
             }}
+            imgSrc={"/number-2.png"}
           />
         </div>
         <div id="emote" className="cursor-pointer">
@@ -362,6 +365,7 @@ const Stats = ({ viewingStats }) => {
             setAnimationUrl={() => {
               setAnimationUrl("/fight.fbx");
             }}
+            imgSrc={"/number-3.png"}
           />
         </div>
         <div id="emote" className="cursor-pointer">
@@ -371,6 +375,7 @@ const Stats = ({ viewingStats }) => {
             setAnimationUrl={() => {
               setAnimationUrl("/punch.fbx");
             }}
+            imgSrc={"/number-four.png"}
           />
         </div>
         <div id="emote" className="cursor-pointer">
@@ -380,6 +385,7 @@ const Stats = ({ viewingStats }) => {
             setAnimationUrl={() => {
               setAnimationUrl("/punch.fbx");
             }}
+            imgSrc={"/number-5.png"}
           />
         </div>
       </div>
