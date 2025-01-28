@@ -14,18 +14,6 @@ function AddMembers() {
   const { state } = useLocation();
   const { squadName } = state || {}; // Safely extract the state
 
-  useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        const res1 = await axios.get(`https://api.mlsc.tech/squad/${squadName}/members`);
-        setNames(res1.data.members || []); // Set fetched members to state
-      } catch (error) {
-        console.error("Error fetching squad members:", error);
-      }
-    };
-
-    fetchMembers();
-  }, [squadName]);
   
 
   const handleAddMember = async () => {
