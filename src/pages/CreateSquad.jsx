@@ -6,9 +6,8 @@ import axios from "axios";
 export default function CreateSquad() {
   const [squadName, setSquadName] = useState("");
   const [callingCard, setCallingCard] = useState("");
-  
-
-
+  const admin_token = localStorage.getItem("admin_token");
+  console.log(admin_token);
 
   const navigate = useNavigate();
 
@@ -19,12 +18,17 @@ export default function CreateSquad() {
         {
           name: squadName,
           callingCard: parseInt(callingCard),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${admin_token}`,
+          },
         }
       );
 
       console.log(res.data);
 
-      navigate("/addMembers", { state: { squadName} });
+      navigate("/addMembers", { state: { squadName } });
     } catch (error) {
       console.error("Error sending data:", error);
     }
