@@ -75,7 +75,7 @@ export default function Login() {
             width: "100vw",
           }}
         >
-          <img
+          <img className="greenBack"
             src="/image.png"
             alt="Background"
             style={{
@@ -111,7 +111,7 @@ export default function Login() {
             />
           </div>
 
-          <div
+          <div className="loginDiv"
             style={{
               position: "absolute",
               top: "50%",
@@ -121,7 +121,7 @@ export default function Login() {
               zIndex: 4,
             }}
           >
-            <h1
+            <h1 className="loginHeading"
               style={{
                 color: "white",
                 fontSize: "50px",
@@ -143,9 +143,9 @@ export default function Login() {
               textAlign: "center",
             }}
           >
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center loginInputDiv">
 
-            <input
+            <input className="loginInput"
               placeholder="USERNAME"
               style={{
                 backgroundColor: "#141414",
@@ -162,7 +162,7 @@ export default function Login() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               />
-            <input
+            <input className="loginInput"
               type="password"
               id=""
               placeholder="PASSWORD"

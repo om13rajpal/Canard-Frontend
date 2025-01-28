@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
 
 export default function AdminLogin() {
@@ -10,13 +9,14 @@ export default function AdminLogin() {
   const [popupMessage, setPopupMessage] = useState("");
   const navigate = useNavigate();
 
-
   const token = localStorage.getItem("token");
   const adminToken = localStorage.getItem("admin_token");
   useEffect(() => {
     if (adminToken) {
       // Redirect to /register if already logged in
       navigate("/register");
+    } else {
+      navigate("/adminLogin");
     }
   }, [adminToken, navigate]);
   
@@ -25,24 +25,27 @@ export default function AdminLogin() {
   let res;
   const handleDiveInClick = async () => {
     try {
-      res = await axios.post("https://x5phqdm7-4140.inc1.devtunnels.ms/admin/login", {
-        username: username,
-        password: password,
-      },{
-        headers:{
-          Authorization: `Bearer ${token}`,
+      res = await axios.post(
+        "https://api.mlsc.tech/admin/login",
+        {
+          username: username,
+          password: password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-      
+      );
 
-      if (res.status===401 || res.status===403) {
+      if (res.status === 401 || res.status === 403) {
         alert("Unauthorized");
         navigate("/adminLogin");
         return;
       }
       console.log(res);
-  
-      localStorage.setItem("admin_token", res.data.data.token);
+
+      localStorage.setItem("admin_token", res.data.data.userToken);
       navigate("/register");
     } catch (error) {
       console.log(error.response.data.message);
@@ -133,43 +136,42 @@ export default function AdminLogin() {
             }}
           >
             <div className="flex flex-col items-center">
-
-            <input
-              placeholder="ADMIN_NAME"
-              style={{
-                backgroundColor: "#141414",
-                height: "60px",
-                width: "400px",
-                border: "1px solid rgba(255, 255, 255, 0.5)",
-                borderRadius: "10px",
-                padding: "20px",
-                color: "white",
-                fontSize: "15px",
-                marginTop: "25px",
-              }}
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              <input
+                placeholder="ADMIN_NAME"
+                style={{
+                  backgroundColor: "#141414",
+                  height: "60px",
+                  width: "400px",
+                  border: "1px solid rgba(255, 255, 255, 0.5)",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  color: "white",
+                  fontSize: "15px",
+                  marginTop: "25px",
+                }}
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
-            <input
-              type="password"
-              id=""
-              placeholder="PASSWORD"
-              style={{
-                backgroundColor: "#141414",
-                height: "60px",
-                width: "400px",
-                border: "1px solid rgba(255, 255, 255, 0.5)",
-                borderRadius: "10px",
-                padding: "20px",
-                color: "white",
-                fontSize: "15px",
-                marginTop: "25px",
-              }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              <input
+                type="password"
+                id=""
+                placeholder="PASSWORD"
+                style={{
+                  backgroundColor: "#141414",
+                  height: "60px",
+                  width: "400px",
+                  border: "1px solid rgba(255, 255, 255, 0.5)",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  color: "white",
+                  fontSize: "15px",
+                  marginTop: "25px",
+                }}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              </div>
+            </div>
 
             <div
               onClick={handleDiveInClick}
@@ -194,7 +196,9 @@ export default function AdminLogin() {
       {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-[#c0c0c0] p-10 rounded-lg shadow-lg text-center">
-            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">{popupMessage}</h3>
+            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">
+              {popupMessage}
+            </h3>
             <button
               className="bg-black text-white px-4 py-[2px] rounded-md"
               onClick={() => setShowPopup(false)}

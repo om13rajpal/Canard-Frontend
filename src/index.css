@@ -101,3 +101,68 @@ body, html {
 .paused {
   animation-play-state: paused !important;
 }
+
+
+@media (max-width: 480px) {
+  .loginDiv {
+    padding: 10px;
+    width: 80%;
+    max-width: 480px; 
+   
+  }
+
+  .loginDiv .loginHeading {
+    font-size: 35px !important; 
+    margin-bottom: 50px;
+  }
+}
+
+
+@media (max-width: 360px) {
+  .loginDiv {
+    padding: 10px;
+    width: 70%;
+    max-width: 360px; 
+   
+  }
+
+  .loginDiv .loginHeading {
+    font-size: 35px !important; 
+    margin-bottom: 50px;
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  .greenBack {
+    height: 1000px !important; /* Ensures it takes full viewport height */
+    width: 100vw; /* Ensures full viewport width */
+    object-fit: cover; /* Maintains aspect ratio and covers area */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .loginInputDiv .loginInput {
+    width: 350px !important;
+  }
+}
+
+
+@media (max-width: 360px) {
+  .greenBack {
+    height: 1000px !important;
+    width: 100vw;
+    object-fit: cover; 
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .loginInputDiv .loginInput {
+    width: 300px !important;
+  }
+}
+
+

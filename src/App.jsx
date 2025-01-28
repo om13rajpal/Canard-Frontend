@@ -40,7 +40,7 @@ const App = () => {
     }
   }, [location.pathname]);
 
-    useEffect(() => {
+  useEffect(() => {
     const hiddenNavbarPaths = ["/createAvatar", "/register"];
 
     if (hiddenNavbarPaths.includes(location.pathname)) {
@@ -52,18 +52,27 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
-    if (!token && (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/addMembers" && location.pathname !== "/adminLogin")) {
+
+    if (
+      !token &&
+      location.pathname !== "/login" &&
+      location.pathname !== "/register" &&
+      location.pathname !== "/addMembers" &&
+      location.pathname !== "/adminLogin"
+    ) {
       navigate("/login");
     }
   }, [location.pathname, navigate]);
 
-  useEffect(()=>{
-    const adminToken=localStorage.getItem("admin_token");
-    if(!adminToken && location.pathname==="/register"){
+  useEffect(() => {
+    const adminToken = localStorage.getItem("admin_token");
+    if (
+      (!adminToken || adminToken === undefined) &&
+      location.pathname === "/register"
+    ) {
       navigate("/adminLogin");
     }
-  },[location.pathname,navigate]);
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     const hiddenStat = "/team" || "/shop";
@@ -71,9 +80,6 @@ const App = () => {
       setViewingStats(false);
     }
   }, [location.pathname]);
-
-  
-  
 
   if (loading) {
     return <Loading />;
