@@ -40,7 +40,7 @@ const App = () => {
     }
   }, [location.pathname]);
 
-    useEffect(() => {
+  useEffect(() => {
     const hiddenNavbarPaths = ["/createAvatar", "/register"];
 
     if (hiddenNavbarPaths.includes(location.pathname)) {
@@ -52,18 +52,27 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
-    if (!token && (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/addMembers" && location.pathname !== "/adminLogin")) {
+
+    if (
+      !token &&
+      location.pathname !== "/login" &&
+      location.pathname !== "/register" &&
+      location.pathname !== "/addMembers" &&
+      location.pathname !== "/adminLogin"
+    ) {
       navigate("/login");
     }
   }, [location.pathname, navigate]);
 
-  useEffect(()=>{
-    const adminToken=localStorage.getItem("admin_token");
-    if(!adminToken && location.pathname==="/register"){
+  useEffect(() => {
+    const adminToken = localStorage.getItem("admin_token");
+    if (
+      (!adminToken || adminToken === undefined) &&
+      location.pathname === "/register"
+    ) {
       navigate("/adminLogin");
     }
-  },[location.pathname,navigate]);
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     const hiddenStat = "/team" || "/shop";
@@ -72,24 +81,21 @@ const App = () => {
     }
   }, [location.pathname]);
 
-  
-  
-
   if (loading) {
     return <Loading />;
   }
 
   return (
     <div className="m-0 p-0 box-border bg-[#101010]">
-        <Navbar
-          cardPage={cardPage}
-          setViewingCart={setViewingCart}
-          setViewingStats={setViewingStats}
-          viewingCart={viewingCart}
-          viewingStats={viewingStats}
-          currentPath={location.pathname} // Passing the current path
-        />
-      
+      <Navbar
+        cardPage={cardPage}
+        setViewingCart={setViewingCart}
+        setViewingStats={setViewingStats}
+        viewingCart={viewingCart}
+        viewingStats={viewingStats}
+        currentPath={location.pathname} // Passing the current path
+      />
+
       {viewNavbar && (
         <div className="w-screen h-[1px] bg-white absolute top-[65px] z-20 opacity-45"></div>
       )}
