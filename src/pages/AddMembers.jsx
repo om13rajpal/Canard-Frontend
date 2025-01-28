@@ -16,54 +16,67 @@ function AddMembers() {
 
   const admin_token = localStorage.getItem("admin_token");
 
-  useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        const res1 = await axios.get(`https://api.mlsc.tech/team/${squadName}/users`, {
+  const fetchMembers = async () => {
+    try {
+      const res1 = await axios.get(
+        `https://api.mlsc.tech/team/${squadName}/users`,
+        {
           headers: {
             Authorization: `Bearer ${admin_token}`,
           },
         }
+      );
+      console.log(res1.data);
+      setNames(res1.data.data.users); // Set fetched members to state
+    } catch (error) {
+      console.error("Error fetching squad members:", error);
+    }
+  };
 
-        );
-        setNames(res1.data.members || []); // Set fetched members to state
-        console.log(res1.data)
-      } catch (error) {
-        console.error("Error fetching squad members:", error);
-      }
-    };
-
+  useEffect(() => {
     fetchMembers();
-  }, [squadName]);
-  
+  }, []);
 
   const handleAddMember = async () => {
     if (currentPassword.length < 5) {
       alert("Password should be atleast 5 characters long");
       return;
     }
-    if(currentName.trim() === "" || currentEmail.trim() === "" || currentPassword.trim() === ""){
+    if (
+      currentName.trim() === "" ||
+      currentEmail.trim() === "" ||
+      currentPassword.trim() === ""
+    ) {
       alert("Please fill all the fields");
       return;
     }
-    if (res1.status === 200) {
-      // Member added successfully to the server
-      setNames((prevNames) => [...prevNames, currentName]); // Update local state
-      setCurrentName(""); // Clear input field
 
-      if (names.length + 1 === 4) {
-        setShowCompletionMessage(true); // Show completion message when 4 members are added
-      } else {
-        setShowCompletionMessage(false);
-      }
-    }
     try {
-      const res = await axios.post("https://api.mlsc.tech/user", {
-        username: currentName,
-        email: currentEmail,
-        password: currentPassword,
-        teamName: squadName,
-      });
+      const res1 = await axios.post(
+        "https://api.mlsc.tech/user",
+        {
+          username: currentName,
+          email: currentEmail,
+          password: currentPassword,
+          teamName: squadName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${admin_token}`,
+          },
+        }
+      );
+      if (res1.data.status === true) {
+        // Member added successfully to the server
+        fetchMembers(); // Update local state
+        setCurrentName(""); // Clear input field
+
+        if (names.length + 1 === 4) {
+          setShowCompletionMessage(true); // Show completion message when 4 members are added
+        } else {
+          setShowCompletionMessage(false);
+        }
+      }
     } catch (error) {
       console.error("Error sending data:", error);
     }
@@ -168,7 +181,7 @@ function AddMembers() {
             zIndex: -1,
           }}
         />
-        
+
         <div
           style={{
             width: "100%",
@@ -331,9 +344,20 @@ function AddMembers() {
               className="col-lg-4 flex-row flex gap-4 items-center justify-center"
               style={{ marginTop: "30px", marginBottom: "30px" }}
             >
-              {names.map((member, index) => (
-                <MemberDiv key={index} memberName={member} />
-              ))}
+              <div
+                className="col-lg-4 flex-row flex gap-4 items-center justify-center"
+                style={{ marginTop: "30px", marginBottom: "30px" }}
+              >
+                {names && names.length > 0 ? (
+                  names.map((member, index) => (
+                    <div>
+                      <MemberDiv key={index} memberName={member} />
+                      </div>
+                  ))
+                ) : (
+                  <p style={{ color: "white" }}>No members found</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
