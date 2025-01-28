@@ -41,7 +41,7 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const hiddenNavbarPaths = ["/createAvatar", "/register"];
+    const hiddenNavbarPaths = ["/createAvatar"];
 
     if (hiddenNavbarPaths.includes(location.pathname)) {
       setViewnavbar(false);

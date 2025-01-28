@@ -173,7 +173,7 @@ const Shop = ({ viewingCart, setViewingcart }) => {
 
         {/* PowerUps */}
         <div className="w-[100vw] h-[100vh] absolute z-10 top-0 bottom-0 left-0 right-0 flex items-center justify-center" id="powerups">
-          <div className="w-[70vw] h-[70vh] flex flex-wrap gap-6 justify-center items-center translate-y-8">
+          <div className="w-[80vw] h-[80vh] flex flex-wrap gap-6 justify-center items-center translate-y-8">
             {powerUps.map((powerUp, index) => (
               <div
                 key={index}
@@ -195,11 +195,11 @@ const Shop = ({ viewingCart, setViewingcart }) => {
 
                 {/* Name, description, and price */}
                 <div className="relative z-10 p-4 h-full flex flex-col justify-between rounded-xl transition-transform duration-300 group-hover:scale-105 font-alien">
-                  <div>
+                  <div className="flex flex-col justify-evenly items-center h-full">
                     <h3 className="text-white text-lg font-semibold opacity-90 tracking-[2px] text-[15px]">
                       {powerUp.name}
                     </h3>
-                    <p className="text-white text-[11px] opacity-0 group-hover:opacity-100 transition-opacity font-sans">
+                    <p className="text-white text-center text-[11px] opacity-0 group-hover:opacity-100 transition-opacity font-sans mt-4">
                       {powerUp.description}
                     </p>
                   </div>

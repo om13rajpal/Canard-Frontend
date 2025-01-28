@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
+import Navbar from "../components/Navbar";
 
 export default function CreateSquad() {
   const [squadName, setSquadName] = useState("");
@@ -58,12 +59,12 @@ export default function CreateSquad() {
             }}
           />
 
-          <LoginNavbar />
+        
 
           <div
             style={{
               width: "100%",
-              height: "250px",
+              height: "32vh",
               overflow: "hidden",
               display: "flex",
               justifyContent: "center",
@@ -94,7 +95,7 @@ export default function CreateSquad() {
             <h1
               style={{
                 color: "white",
-                fontSize: "50px",
+                fontSize: "9vh",
                 fontWeight: "bold",
                 textShadow: "2px 2px 5px rgba(0, 0, 0, 0.7)",
               }}
@@ -117,14 +118,14 @@ export default function CreateSquad() {
               placeholder="SQUAD_NAME"
               style={{
                 backgroundColor: "#141414",
-                height: "60px",
-                width: "400px",
+                height: "8vh",
+                width: "26vw",
                 border: "1px solid rgba(255, 255, 255, 0.5)",
                 borderRadius: "10px",
                 padding: "20px",
                 color: "white",
-                fontSize: "15px",
-                marginTop: "25px",
+                fontSize: "1vw",
+                marginTop: "2vw",
               }}
               type="text"
               value={squadName}
@@ -133,16 +134,16 @@ export default function CreateSquad() {
             <select
               style={{
                 backgroundColor: "#141414",
-                height: "60px",
-                width: "400px",
+                height: "8vh",
+                width: "26vw",
                 border: "1px solid rgba(255, 255, 255, 0.5)",
                 borderRadius: "10px",
                 padding: "20px",
                 color: "#9CA3AF",
-                fontSize: "15px",
+                fontSize: "1vw",
                 zIndex: 3,
                 cursor: "pointer",
-                marginTop: "25px",
+                marginTop: "2vw",
               }}
               name="CHOOSE"
               id="CHOOSE"
@@ -171,14 +172,14 @@ export default function CreateSquad() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop: "20px",
+                marginTop: "2vw",
                 cursor: "pointer",
               }}
             >
               <img
                 src="/playbutton.png"
                 alt="Play Button"
-                style={{ width: "50px", marginRight: "10px" }}
+                style={{ width: "8vh", marginRight: "10px" }}
               />
               <span style={{ color: "white", fontSize: "15px" }}>DIVE IN</span>
             </div>

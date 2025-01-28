@@ -27,7 +27,7 @@ const Stats = ({ viewingStats, stats, game }) => {
         <h1 className="text-white">Stats not available</h1>
       ) : (
         <div
-          className="flex flex-col items-center w-[400px] h-auto p-6 rounded-2xl shadow-lg text-white opacity-0 translate-y-[60px]"
+          className="flex flex-col items-center w-[500px] h-[500px] p-6 rounded-2xl shadow-lg text-white opacity-0 translate-y-[60px] justify-center"
           id="stats"
           style={{
             backgroundImage: "url('/stats.png')",
@@ -36,14 +36,16 @@ const Stats = ({ viewingStats, stats, game }) => {
             backgroundPosition: "center", // Center the image
           }}
         >
-          <h1 className="text-2xl font-bold mb-4">{game}</h1>
-          {Object.keys(stats[game]).map((key) => (
-            <div key={key} className="w-full text-center">
-              <p className="text-lg">
-                {stats[game][key].title}: {stats[game][key].value}
-              </p>
-            </div>
-          ))}
+          <h1 className=" translate-y-[110px] -translate-x-6 text-xl font-bold self-start w-[500px] text-center">{game}</h1>
+          <div className="flex flex-col w-full h-full justify-center items-center">
+            {Object.keys(stats[game]).map((key) => (
+              <div key={key} className="w-full text-center">
+                <p className="text-lg">
+                  {stats[game][key].title}: {stats[game][key].value}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

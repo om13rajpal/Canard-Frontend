@@ -6,7 +6,8 @@ import axios from "axios";
 
 function AddMembers() {
   const navigate = useNavigate();
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
   const [names, setNames] = useState([]);
   const [currentName, setCurrentName] = useState("");
   const [showCompletionMessage, setShowCompletionMessage] = useState(false);
@@ -78,6 +79,8 @@ function AddMembers() {
         }
       }
     } catch (error) {
+      setPopupMessage(error.response.data.message.toUpperCase());
+      setShowPopup(true);
       console.error("Error sending data:", error);
     }
   };
@@ -352,7 +355,7 @@ function AddMembers() {
                   names.map((member, index) => (
                     <div>
                       <MemberDiv key={index} memberName={member} />
-                      </div>
+                    </div>
                   ))
                 ) : (
                   <p style={{ color: "white" }}>No members found</p>
@@ -362,6 +365,21 @@ function AddMembers() {
           </div>
         </div>
       </div>
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-[#c0c0c0] p-10 rounded-lg shadow-lg text-center">
+            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">
+              {popupMessage}
+            </h3>
+            <button
+              className="bg-black text-white px-4 py-[2px] rounded-md"
+              onClick={() => setShowPopup(false)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
