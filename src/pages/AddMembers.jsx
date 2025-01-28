@@ -14,11 +14,20 @@ function AddMembers() {
   const { state } = useLocation();
   const { squadName } = state || {}; // Safely extract the state
 
+  const admin_token = localStorage.getItem("admin_token");
+
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const res1 = await axios.get(`https://api.mlsc.tech/squad/${squadName}/members`);
+        const res1 = await axios.get(`https://api.mlsc.tech/team/${squadName}/users`, {
+          headers: {
+            Authorization: `Bearer ${admin_token}`,
+          },
+        }
+
+        );
         setNames(res1.data.members || []); // Set fetched members to state
+        console.log(res1.data)
       } catch (error) {
         console.error("Error fetching squad members:", error);
       }
@@ -89,7 +98,6 @@ function AddMembers() {
     };
     setObjectList([...objectList, newMember]);
     console.log(objectList);
-    setCallingCard("");
     setCurrentEmail("");
     setCurrentName("");
     setCurrentPassword("");
