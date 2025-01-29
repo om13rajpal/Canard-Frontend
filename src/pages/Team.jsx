@@ -83,21 +83,31 @@ const Team = () => {
           modelUrl={member3.avatar}
         />
       )}
+      {member4.avatar && (
+        <AvatarCanvas
+          viewingStats={false}
+          animationUrl={"/anim.fbx"}
+          cameraDistance={2.4}
+          avatarXPosition={-2.4}
+          avatarYPosition={-0.9}
+          modelUrl={member4.avatar}
+        />
+      )}
       <div
         className="absolute w-screen flex bottom-[65px] h-20 justify-center items-center"
         id="usernames"
       >
         <div className="absolute left-[170px]">
-          <Username username={member1.username}/>
+          <Username username={member4.username}/>
         </div>
         <div className="absolute left-[500px] translate-y-2">
-          <Username username={member2.username}/>
-        </div>
-        <div className="absolute right-[170px] translate-y-2">
           <Username username={member3.username}/>
         </div>
+        <div className="absolute right-[170px] translate-y-2">
+          <Username username={member1.username}/>
+        </div>
         <div className="absolute right-[500px]">
-          <Username username={member4.username}/>
+          <Username username={member2.username}/>
         </div>
       </div>
       <div className="flex absolute bottom-[25px] left-[50px] z-30">
