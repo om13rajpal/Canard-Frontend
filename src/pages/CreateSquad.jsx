@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import React from "react";
 
 export default function CreateSquad() {
   const [squadName, setSquadName] = useState("");
   const [callingCard, setCallingCard] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
   const admin_token = localStorage.getItem("admin_token");
   console.log(admin_token);
 
@@ -31,6 +34,8 @@ export default function CreateSquad() {
 
       navigate("/addMembers", { state: { squadName } });
     } catch (error) {
+      setPopupMessage(res.data.data.message.toUpperCase());
+      setShowPopup(true);
       console.error("Error sending data:", error);
     }
   };
@@ -186,6 +191,21 @@ export default function CreateSquad() {
           </div>
         </div>
       </div>
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-[#c0c0c0] p-10 rounded-lg shadow-lg text-center">
+            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">
+              {popupMessage}
+            </h3>
+            <button
+              className="bg-black text-white px-4 py-[2px] rounded-md"
+              onClick={() => setShowPopup(false)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
