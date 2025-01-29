@@ -85,7 +85,6 @@ const Shop = ({ viewingCart, setViewingcart }) => {
           Authorization: `Bearer ${token}`,
         }
       })
-      console.log(res.data);
       const boughtPowerups =res.data.data.team.powerups;
       const boughtItems = boughtPowerups.map((powerup)=>powerUps[powerup-1].name);
       setBoughtItems(boughtItems);
@@ -133,8 +132,6 @@ const Shop = ({ viewingCart, setViewingcart }) => {
         setPopupMessage("PURCHASE SUCCESSFUL!");
         setShowPopup(true);
         
-        console.log(boughtItems);
-        console.log(res.data);
       
     } catch (error) {
       setPopupMessage(error.response.data.message.toUpperCase());
@@ -145,8 +142,6 @@ const Shop = ({ viewingCart, setViewingcart }) => {
 
 
 
-    console.log("Bought items: ", boughtItems);
-    console.log(currencyLeft)
   };
 
   useEffect(() => {

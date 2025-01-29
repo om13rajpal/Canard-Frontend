@@ -10,7 +10,6 @@ const CreateAvatar = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
-  console.log("User ID:", userId);
 
   const created = async (avatar) => {
     try {
@@ -20,8 +19,6 @@ const CreateAvatar = () => {
 
       
 
-       console.log("Token:", token);
-      console.log("Sending payload:", data);
 
       const response = await axios.patch(`https://api.mlsc.tech/user/${userId}`, data,{
         headers:{
@@ -29,7 +26,6 @@ const CreateAvatar = () => {
         }
       });
 
-      console.log("Avatar saved successfully:", response.data);
 
       setTimeout(() => {
         navigate("/avatarCreated");
@@ -53,8 +49,6 @@ const CreateAvatar = () => {
           quickStart: false,
         }}
         onAvatarExported={(avatar) => {
-          console.log("Avatar exported:", avatar);
-          console.log("Avatar URL:", avatar.data.url);
           created(avatar);  
         }}
       />

@@ -356,7 +356,6 @@ const Stats = ({ viewingStats }) => {
             width={"17px"}
             setAnimationUrl={() => {
               setAnimationUrl("/shout.fbx");
-              console.log(animationUrl);
             }}
             imgSrc={"/number-2.png"}
           />

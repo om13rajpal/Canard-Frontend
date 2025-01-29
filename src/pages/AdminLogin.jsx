@@ -43,12 +43,10 @@ export default function AdminLogin() {
         navigate("/adminLogin");
         return;
       }
-      console.log(res);
 
       localStorage.setItem("admin_token", res.data.data.userToken);
       navigate("/register");
     } catch (error) {
-      console.log(error.response.data.message);
       setPopupMessage(error.response.data.message.toUpperCase());
       setShowPopup(true);
       if (!error.response.data.status) {

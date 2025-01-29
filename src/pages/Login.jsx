@@ -26,17 +26,14 @@ export default function Login() {
       localStorage.setItem("token", token);
       localStorage.setItem("teamId", teamId);
   
-      console.log(res.data);
 
       localStorage.setItem("token", res.data.data.userToken);
       localStorage.setItem("userId", res.data.data.user.id);
       localStorage.setItem("teamId", res.data.data.user.teamId);
       localStorage.setItem("callingCard", res.data.data.user.callingCard);
 
-      console.log(res.data.data.user.avatar === null);
   
       if (res.data.data.user.avatar === null) {
-        console.log("No avatar");
         setPopupMessage(
           "NO AVATAR FOUND. PLEASE CREATE AN AVATAR TO CONTINUE. REDIRECTING TO AVATAR CREATION PAGE."
         );
@@ -53,7 +50,6 @@ export default function Login() {
         window.location.reload();
       }
     } catch (error) {
-      console.log(error.response?.data?.message);
       setPopupMessage(error.response?.data?.message.toUpperCase() || "An error occurred.");
       setShowPopup(true);
   

@@ -18,7 +18,6 @@ export function Avatar(props) {
   }
 
   if (!scene) {
-    console.log("Scene is not defined");
     return null;
   }
 
@@ -26,7 +25,6 @@ export function Avatar(props) {
   const { nodes, materials } = useGraph(clone);
 
   if (!nodes || !materials) {
-    console.log("Nodes or materials are not defined");
     return null;
   }
 

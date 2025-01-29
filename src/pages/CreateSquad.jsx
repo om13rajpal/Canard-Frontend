@@ -10,7 +10,6 @@ export default function CreateSquad() {
     const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const admin_token = localStorage.getItem("admin_token");
-  console.log(admin_token);
 
   const navigate = useNavigate();
 
@@ -29,7 +28,6 @@ export default function CreateSquad() {
         }
       );
 
-      console.log(res.data);
 
       navigate("/addMembers", { state: { squadName } });
     } catch (error) {

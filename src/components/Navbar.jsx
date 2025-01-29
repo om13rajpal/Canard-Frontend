@@ -99,7 +99,6 @@ const Navbar = ({
           alt=""
           className="opacity-80 w-[18px] h-[18px] cursor-pointer"
           onClick={() => {
-            console.log("Logout");
             localStorage.clear();
             navigate("/login");
           }}
