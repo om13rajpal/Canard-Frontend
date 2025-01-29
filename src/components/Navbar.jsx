@@ -50,7 +50,7 @@ const Navbar = ({
       <img
         src={gif ? gif : null}
         alt=""
-        className="w-[6vw] rounded-lg border-transparent object-cover"
+        className="w-[75px] rounded-lg border-transparent object-cover"
         style={{
           aspectRatio: "2/1",
         }}
