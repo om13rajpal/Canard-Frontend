@@ -132,6 +132,11 @@ body, html {
   }
 }
 
+@media (max-width: 800px) {
+  .nav_main{
+    display: none;
+  }
+}
 
 
 @media (max-width: 480px) {

@@ -181,7 +181,7 @@ const Stats = ({ viewingStats }) => {
     });
 
     usernameTl.to("#username", {
-      x: "-300px",
+      x: "-10.5vw",
       duration: 0.5,
       scale: 0.3,
       ease: "elastic.out",
@@ -197,7 +197,7 @@ const Stats = ({ viewingStats }) => {
     });
 
     teamnameTl.to("#teamname", {
-      x: "-212px",
+      x: "-14vw",
       duration: 0.5,
       scale: 0.35,
       ease: "elastic.out",

@@ -57,12 +57,12 @@ const Navbar = ({
         id="nav"
         />
 
-<div className="absolute top-0 bottom-0 right-0 left-0 flex justify-center items-center">
+<div className="absolute top-0 bottom-0 right-0 left-0 flex justify-center items-center" >
         <Link to={"/"}>
           <img src="/logo.png" id="nav" className="w-[210px] h-[25px]" />
         </Link>
       </div>
-      <div className="opacity-80 w-[25vw] flex justify-evenly" id="nav">
+      <div className="opacity-80 w-[25vw] flex justify-evenly nav_main" id="nav">
         <Link
           className="text-white font-alien font-thin tracking-[1.2px] text-[14px]"
           to={"/team"} 
