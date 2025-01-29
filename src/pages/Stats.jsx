@@ -433,7 +433,7 @@ const Stats = ({ viewingStats }) => {
         className="absolute top-[110px] right-[100px] text-white font-thaust text-[20px] translate-x-[200px]"
         id="credits"
       >
-        {credits}
+        ${credits}
       </div>
       <div
         className="absolute text-white font-alien text-[12px] -rotate-90 left-0 bottom-[200px] translate-x-[-17px] opacity-75"
