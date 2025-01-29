@@ -14,8 +14,7 @@ const Stats = ({ viewingStats }) => {
   const [teamName, setTeamName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [statsData, setStatsData] = useState([]);
-
-  
+  const [credits, setCredits] = useState(null);
 
   console.log(username, teamName, avatarUrl);
 
@@ -60,31 +59,45 @@ const Stats = ({ viewingStats }) => {
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   async function fetchData() {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    const response = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    const teamId = localStorage.getItem("teamId");
+    try {
+      const response = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const credit = await axios.get(`https://api.mlsc.tech/team/${teamId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const stateRes = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+      const stateRes = await axios.get(`https://api.mlsc.tech/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const statsData = await stateRes.data;
-    const data = await response.data;
-    setStatsData(statsData.data.user.gameStats)
-    console.log(statsData.data.user.gameStats);
+      const statsData = await stateRes.data;
+      const data = await response.data;
+      const currency=await credit.data.data.team.score;
+      setCredits(currency);
+      console.log(credit.data.data.team.score);
+      setStatsData(statsData.data.user.gameStats);
+      console.log(statsData.data.user.gameStats);
 
-    setUserName(data.data.user.username);
-    setTeamName(data.data.user.teamName);
-    setAvatarUrl(data.data.user.avatar);
+      setUserName(data.data.user.username);
+      setTeamName(data.data.user.teamName);
+      setAvatarUrl(data.data.user.avatar);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("An error occurred while fetching data.");
+    }
   }
 
   useEffect(() => {
@@ -290,12 +303,10 @@ const Stats = ({ viewingStats }) => {
   }
 
   return (
-    
     <div
       className="w-screen h-screen flex flex-col absolute bg-black "
       ref={pageRef}
     >
-      
       <video
         src="/back.mp4"
         autoPlay
@@ -303,9 +314,7 @@ const Stats = ({ viewingStats }) => {
         muted
         className="w-screen h-screen object-cover "
       />
-      <div
-        className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80 "
-      >
+      <div className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80 ">
         <img src="/japanese.png" alt="" className="w-[30vw]" id="japanese" />
       </div>
       <div
@@ -318,7 +327,9 @@ const Stats = ({ viewingStats }) => {
         className="absolute flex items-center bottom-0 top-0 left-[170px] opacity-85"
         id="teamname"
       >
-        <p className="font-team text-white text-[75px]  translate-y-[70px] ">{teamName}</p>
+        <p className="font-team text-white text-[75px]  translate-y-[70px] ">
+          {teamName}
+        </p>
       </div>
       {avatarUrl ? (
         <AvatarCanvas
@@ -422,7 +433,7 @@ const Stats = ({ viewingStats }) => {
         className="absolute top-[110px] right-[100px] text-white font-thaust text-[20px] translate-x-[200px]"
         id="credits"
       >
-        $400
+        {credits}
       </div>
       <div
         className="absolute text-white font-alien text-[12px] -rotate-90 left-0 bottom-[200px] translate-x-[-17px] opacity-75"
@@ -435,10 +446,11 @@ const Stats = ({ viewingStats }) => {
         id="lorem"
       >
         <p className=" text-[#b3b3b3] flex justify-center font-thin text-[8px] w-[35vw] text-center">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum placeat
-          voluptatem, quasi dolorum reprehenderit consequatur ad provident error dolore
-          maiores commodi mollitia cupiditate. Libero hic nulla minima quasi maxime quo
-          praesentium fuga repellendus quia esse, molestias accusamus sapiente eius nobis?
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum
+          placeat voluptatem, quasi dolorum reprehenderit consequatur ad
+          provident error dolore maiores commodi mollitia cupiditate. Libero hic
+          nulla minima quasi maxime quo praesentium fuga repellendus quia esse,
+          molestias accusamus sapiente eius nobis?
         </p>
       </div>
       <div
@@ -448,7 +460,7 @@ const Stats = ({ viewingStats }) => {
         COPYRIGHT © 2024 RESERVED FOR <i className="text-white">MLSC</i>
       </div>
       <div id="games" className="opacity-0">
-        <Games stats={statsData}/>
+        <Games stats={statsData} />
       </div>
 
       <StatsBorder viewingStats={viewingStats} />
