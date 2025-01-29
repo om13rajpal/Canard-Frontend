@@ -14,6 +14,7 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   const token = localStorage.getItem("token");
   const teamId = localStorage.getItem("teamId");
 
+  
   const powerUps = [
     {
       name: "TIME DECREE I",
@@ -76,7 +77,25 @@ const Shop = ({ viewingCart, setViewingcart }) => {
       image: "/powerup/10",
     },
   ];  
-
+  
+  const fetchPowerups=async()=>{
+    try{
+      const res=await axios.get(`https://api.mlsc.tech/team/${teamId}`,{
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      console.log(res.data);
+      const boughtPowerups =res.data.data.team.powerups;
+      const boughtItems = boughtPowerups.map((powerup)=>powerUps[powerup-1].name);
+      setBoughtItems(boughtItems);
+    }catch(error){
+      console.error("Error fetching powerups:", error);
+    }
+  }
+  useEffect(()=>{
+    fetchPowerups();
+  },[]);
   const handleAddToCart = (powerUp) => {
     if (boughtItems.includes(powerUp.name)) {
       setPopupMessage(`${powerUp.name.toUpperCase()} HAS ALREADY BEEN PURCHASED!`);
@@ -90,18 +109,17 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   };
 
   const handleBuy = async() => {
+    const boughtItems = cart.map((item) => powerUps.findIndex((powerUp) => powerUp.name === item.name)+1);
     
     try {
       const res=await axios.patch(`https://api.mlsc.tech/team/${teamId}/powerups`,{
         powerups: boughtItems,
-        creditCard: creditCard,
-        totalCost: totalCost
+        creditCardNo: creditCard,
       } ,{
         headers:{
           Authorization: `Bearer ${token}`,
         }
       })
-      if(res.data.status===true){
 
         const totalCost = cart.reduce((acc, item) => acc + item.price, 0);
         
@@ -115,12 +133,12 @@ const Shop = ({ viewingCart, setViewingcart }) => {
         setPopupMessage("PURCHASE SUCCESSFUL!");
         setShowPopup(true);
         
-        const boughtItems = cart.map((item) => powerUps.findIndex((powerUp) => powerUp.name === item.name));
         console.log(boughtItems);
         console.log(res.data);
-      }
+      
     } catch (error) {
       setPopupMessage(error.response.data.message.toUpperCase());
+      setShowPopup(true);
       console.error("Error buying items:", error);
       
     }
