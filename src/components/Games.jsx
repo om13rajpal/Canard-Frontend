@@ -53,7 +53,7 @@ const Games = ({ stats }) => {
   return (
     <div className="absolute bottom-[80px] right-0 left-0 top-0">
       <Stats viewingStats={viewingStats} stats={stats} game={game} />
-      <div className="wrapper translate-y-[68vh]" >
+      <div className="wrapper translate-y-[65vh]" >
         <img
           className="item item1 opacity-80"
           src="/games/fortnite.png"

@@ -4,7 +4,7 @@ import AvatarCanvas from "../components/Canvas";
 import StatsBorder from "../components/StatsBorder";
 import gsap from "gsap";
 import Games from "../components/Games";
-import { toPng } from "html-to-image";
+import html2canvas from "html2canvas"; // Import html2canvas
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
@@ -16,44 +16,39 @@ const Stats = ({ viewingStats }) => {
   const [statsData, setStatsData] = useState([]);
   const [credits, setCredits] = useState(null);
 
-  console.log(username, teamName, avatarUrl);
-
   const scrollRef = useRef();
   const pageRef = useRef();
   const [scrollPaused, setScrollPaused] = useState(false);
 
-  async function captureScreenshot() {
+  const captureAndShare = async () => {
     if (pageRef.current) {
       try {
-        const image = await toPng(pageRef.current);
-        console.log("clicked");
-        console.log(image);
-        return image;
-      } catch (e) {
-        console.log("image not captured", e);
-      }
-    }
-  }
-
-  const shareScreenshot = async () => {
-    const image = await captureScreenshot();
-    if (image && navigator.share) {
-      try {
-        const blob = await (await fetch(image)).blob();
-        const filesArray = [
-          new File([blob], "screenshot.png", { type: "image/png" }),
-        ];
-
-        navigator.share({
-          files: filesArray,
-          text: "Check out this awesome screenshot!",
-          title: "My Website Screenshot",
+        const canvas = await html2canvas(pageRef.current, {
+          useCORS: true, // Ensures cross-origin images load
+          logging: false,
+          scale: 2, // Improves resolution
         });
+
+        const image = canvas.toDataURL("image/png");
+
+        // Convert data URL to Blob
+        const blob = await (await fetch(image)).blob();
+        const file = new File([blob], "screenshot.png", { type: "image/png" });
+
+        // Check if Web Share API is available
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: "Check this out!",
+            text: "Sharing my screen capture!",
+          });
+        } else {
+          alert("Sharing not supported on this device.");
+        }
       } catch (error) {
-        console.error("Error sharing screenshot:", error);
+        console.error("Error capturing or sharing image:", error);
+        alert("An error occurred while capturing or sharing the image.");
       }
-    } else {
-      alert("Sharing is not supported on this browser.");
     }
   };
 
@@ -85,12 +80,9 @@ const Stats = ({ viewingStats }) => {
 
       const statsData = await stateRes.data;
       const data = await response.data;
-      const currency=await credit.data.data.team.score;
+      const currency = await credit.data.data.team.score;
       setCredits(currency);
-      console.log(credit.data.data.team.score);
       setStatsData(statsData.data.user.gameStats);
-      console.log(statsData.data.user.gameStats);
-
       setUserName(data.data.user.username);
       setTeamName(data.data.user.teamName);
       setAvatarUrl(data.data.user.avatar);
@@ -194,7 +186,7 @@ const Stats = ({ viewingStats }) => {
     });
 
     usernameTl.to("#username", {
-      x: "-180px",
+      x: "-320px",
       duration: 0.5,
       scale: 0.3,
       ease: "elastic.out",
@@ -409,7 +401,7 @@ const Stats = ({ viewingStats }) => {
             src="/share.png"
             alt=""
             className="w-[18px] h-[18px]"
-            onClick={shareScreenshot}
+            onClick={captureAndShare}
           />
           <img
             src="/web.png"
