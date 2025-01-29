@@ -2,10 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Emote from "../components/Emote";
 import AvatarCanvas from "../components/Canvas";
 import StatsBorder from "../components/StatsBorder";
-import gsap from "gsap";
 import Games from "../components/Games";
 import Username from "../components/Username";
-import { useGLTF } from "@react-three/drei";
 import axios from "axios";
 
 const Team = () => {
