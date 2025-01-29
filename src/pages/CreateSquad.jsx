@@ -4,7 +4,6 @@ import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
-
 export default function CreateSquad() {
   const [squadName, setSquadName] = useState("");
   const [callingCard, setCallingCard] = useState("");
@@ -34,6 +33,7 @@ export default function CreateSquad() {
 
       navigate("/addMembers", { state: { squadName } });
     } catch (error) {
+      setPopupMessage(error.response.data.message.toUpperCase());
       setPopupMessage(error.response.data.message.toUpperCase());
       setShowPopup(true);
       console.error("Error sending data:", error);
