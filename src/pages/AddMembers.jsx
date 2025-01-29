@@ -51,7 +51,10 @@ function AddMembers() {
       alert("Please fill all the fields");
       return;
     }
-
+    if(squadName===undefined){
+      alert("Please create a squad first");
+      return;
+    }
     try {
       const res1 = await axios.post(
         "https://api.mlsc.tech/user",

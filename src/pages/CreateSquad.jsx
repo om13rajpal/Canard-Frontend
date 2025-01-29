@@ -34,6 +34,7 @@ export default function CreateSquad() {
       navigate("/addMembers", { state: { squadName } });
     } catch (error) {
       setPopupMessage(error.response.data.message.toUpperCase());
+      setPopupMessage(error.response.data.message.toUpperCase());
       setShowPopup(true);
       console.error("Error sending data:", error);
     }
