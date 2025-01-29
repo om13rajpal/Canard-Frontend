@@ -110,6 +110,48 @@ const Games = ({ stats }) => {
           onMouseEnter={() => handleMouseEnter("miniMilitia")}
           onMouseLeave={() => handleMouseLeave("miniMilitia")}
         />
+        <img
+          className="item item9 opacity-80"
+          src="/games/bowling.png"
+          id="bowling"
+          onMouseEnter={() => handleMouseEnter("bowling")}
+          onMouseLeave={() => handleMouseLeave("bowling")}
+        />
+        <img
+          className="item item10 opacity-80"
+          src="/games/mario.png"
+          id="mario"
+          onMouseEnter={() => handleMouseEnter("mario")}
+          onMouseLeave={() => handleMouseLeave("mario")}
+        />
+        <img
+          className="item item11 opacity-80"
+          src="/games/tekken3.png"
+          id="tekken3"
+          onMouseEnter={() => handleMouseEnter("tekken3")}
+          onMouseLeave={() => handleMouseLeave("tekken3")}
+        />
+        <img
+          className="item item12 opacity-80"
+          src="/games/nerf.png"
+          id="nerf"
+          onMouseEnter={() => handleMouseEnter("nerf")}
+          onMouseLeave={() => handleMouseLeave("nerf")}
+        />
+        <img
+          className="item item13 opacity-80"
+          src="/games/clash royale.png"
+          id="clash royale"
+          onMouseEnter={() => handleMouseEnter("clash royale")}
+          onMouseLeave={() => handleMouseLeave("clash royale")}
+        />
+        <img
+          className="item item14 opacity-80"
+          src="/games/bgmi.png"
+          id="bgmi"
+          onMouseEnter={() => handleMouseEnter("bgmi")}
+          onMouseLeave={() => handleMouseLeave("bgmi")}
+        />
       </div>
     </div>
   );
