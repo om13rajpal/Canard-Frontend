@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import React from "react";
 
 export default function CreateSquad() {
   const [squadName, setSquadName] = useState("");
@@ -34,7 +33,7 @@ export default function CreateSquad() {
 
       navigate("/addMembers", { state: { squadName } });
     } catch (error) {
-      setPopupMessage(res.data.data.message.toUpperCase());
+      setPopupMessage(error.response.data.message.toUpperCase());
       setShowPopup(true);
       console.error("Error sending data:", error);
     }
