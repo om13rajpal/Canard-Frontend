@@ -90,21 +90,7 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   };
 
   const handleBuy = async() => {
-    const totalCost = cart.reduce((acc, item) => acc + item.price, 0);
-
-    if (totalCost <= currencyLeft) {
-      setCurrencyLeft((prev) => prev - totalCost);
-      setBoughtItems((prev) => [...prev, ...cart.map((item) => item.name)]);
-      setCart([]);
-    }
-
-    setCreditCard("");
-    setPopupMessage("PURCHASE SUCCESSFUL!");
-    setShowPopup(true);
     
-    const boughtItems = cart.map((item) => powerUps.findIndex((powerUp) => powerUp.name === item.name));
-    console.log(boughtItems);
-
     try {
       const res=await axios.patch(`https://api.mlsc.tech/team/${teamId}/powerups`,{
         powerups: boughtItems,
@@ -115,8 +101,26 @@ const Shop = ({ viewingCart, setViewingcart }) => {
           Authorization: `Bearer ${token}`,
         }
       })
-      console.log(res.data);
+      if(res.data.status===true){
+
+        const totalCost = cart.reduce((acc, item) => acc + item.price, 0);
+        
+        if (totalCost <= currencyLeft) {
+          setCurrencyLeft((prev) => prev - totalCost);
+          setBoughtItems((prev) => [...prev, ...cart.map((item) => item.name)]);
+          setCart([]);
+        }
+        
+        setCreditCard("");
+        setPopupMessage("PURCHASE SUCCESSFUL!");
+        setShowPopup(true);
+        
+        const boughtItems = cart.map((item) => powerUps.findIndex((powerUp) => powerUp.name === item.name));
+        console.log(boughtItems);
+        console.log(res.data);
+      }
     } catch (error) {
+      setPopupMessage(error.response.data.message.toUpperCase());
       console.error("Error buying items:", error);
       
     }
