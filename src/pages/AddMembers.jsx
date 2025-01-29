@@ -27,7 +27,6 @@ function AddMembers() {
           },
         }
       );
-      console.log(res1.data);
       setNames(res1.data.data.users); // Set fetched members to state
     } catch (error) {
       console.error("Error fetching squad members:", error);
@@ -116,14 +115,12 @@ function AddMembers() {
       passwords: currentPassword,
     };
     setObjectList([...objectList, newMember]);
-    console.log(objectList);
     setCurrentEmail("");
     setCurrentName("");
     setCurrentPassword("");
   };
 
   useEffect(() => {
-    console.log(squadName);
   }, []);
 
   return (

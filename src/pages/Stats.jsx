@@ -16,7 +16,6 @@ const Stats = ({ viewingStats }) => {
   const [statsData, setStatsData] = useState([]);
   const [credits, setCredits] = useState(null);
 
-  console.log(username, teamName, avatarUrl);
 
   const scrollRef = useRef();
   const pageRef = useRef();
@@ -26,11 +25,8 @@ const Stats = ({ viewingStats }) => {
     if (pageRef.current) {
       try {
         const image = await toPng(pageRef.current);
-        console.log("clicked");
-        console.log(image);
         return image;
       } catch (e) {
-        console.log("image not captured", e);
       }
     }
   }
@@ -87,9 +83,7 @@ const Stats = ({ viewingStats }) => {
       const data = await response.data;
       const currency=await credit.data.data.team.score;
       setCredits(currency);
-      console.log(credit.data.data.team.score);
       setStatsData(statsData.data.user.gameStats);
-      console.log(statsData.data.user.gameStats);
 
       setUserName(data.data.user.username);
       setTeamName(data.data.user.teamName);
@@ -364,7 +358,6 @@ const Stats = ({ viewingStats }) => {
             width={"17px"}
             setAnimationUrl={() => {
               setAnimationUrl("/shout.fbx");
-              console.log(animationUrl);
             }}
             imgSrc={"/number-2.png"}
           />

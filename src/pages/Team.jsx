@@ -27,7 +27,6 @@ const Team = () => {
 
     const data = await res.data;
 
-    console.log(data);
     setMember1(data.data.team.members[0]);
     setMember2(data.data.team.members[1]);
     setMember3(data.data.team.members[2]);
