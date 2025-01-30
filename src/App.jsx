@@ -111,16 +111,17 @@ const App = () => {
             element={<Done targetText={"YOUR AVATAR HAS BEEN CREATED"} />}
           />
           <Route path="/team" element={<Team viewingStats={viewingStats} />} />
-          <Route path="/register" element={<CreateSquad />} />
-          <Route path="/addMembers" element={<AddMembers />} />
+          {/* <Route path="/register" element={<CreateSquad />} /> */}
+          {/* <Route path="/addMembers" element={<AddMembers />} /> */}
           <Route path="/login" element={<Login />} />
-          <Route path="/adminLogin" element={<AdminLogin />} />
-          <Route
+          {/* <Route path="/adminLogin" element={<AdminLogin />} /> */}
+          {/* <Route
             path="/shop"
             element={
               <Shop viewingCart={viewingCart} setViewingcart={setViewingCart} />
             }
-          />
+          /> */}
+          <Route path="*" element={<Done targetText={"SHOP IS CLOSED FOR NOW"} />} />
         </Routes>
       </Suspense>
     </div>
