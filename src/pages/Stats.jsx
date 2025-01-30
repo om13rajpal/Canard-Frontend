@@ -4,7 +4,7 @@ import AvatarCanvas from "../components/Canvas";
 import StatsBorder from "../components/StatsBorder";
 import gsap from "gsap";
 import Games from "../components/Games";
-import html2canvas from "html2canvas"; // Import html2canvas
+import html2canvas from "html2canvas";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
@@ -21,36 +21,66 @@ const Stats = ({ viewingStats }) => {
   const [scrollPaused, setScrollPaused] = useState(false);
 
   const captureAndShare = async () => {
-    if (pageRef.current) {
-      try {
-        const canvas = await html2canvas(pageRef.current, {
-          useCORS: true, // Ensures cross-origin images load
-          logging: false,
-          scale: 2, // Improves resolution
-        });
-
-        const image = canvas.toDataURL("image/png");
-
-        // Convert data URL to Blob
-        const blob = await (await fetch(image)).blob();
-        const file = new File([blob], "screenshot.png", { type: "image/png" });
-
-        // Check if Web Share API is available
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: "Check this out!",
-            text: "Sharing my screen capture!",
-          });
-        } else {
-          alert("Sharing not supported on this device.");
-        }
-      } catch (error) {
-        console.error("Error capturing or sharing image:", error);
-        alert("An error occurred while capturing or sharing the image.");
+    if (!pageRef.current) return;
+  
+    try {
+      // Step 1: Capture the 3D Model (R3F Canvas)
+      const canvas3D = document.querySelector("canvas"); // Ensure this selects your React Three Fiber canvas
+      if (!canvas3D) {
+        throw new Error("3D canvas not found");
       }
+  
+      // Convert 3D canvas to an image
+      const canvas3DImage = canvas3D.toDataURL("image/png");
+  
+      // Step 2: Capture the rest of the page using html2canvas
+      const canvas2D = await html2canvas(pageRef.current, {
+        useCORS: true, // Ensures cross-origin images load
+        logging: false,
+        scale: 2, // Improves resolution
+      });
+  
+      // Step 3: Merge the 2D and 3D Images
+      const combinedCanvas = document.createElement("canvas");
+      const ctx = combinedCanvas.getContext("2d");
+  
+      combinedCanvas.width = canvas2D.width;
+      combinedCanvas.height = canvas2D.height;
+  
+      // Draw 2D Screenshot
+      ctx.drawImage(canvas2D, 0, 0);
+  
+      // Load and Draw 3D Model Image on Top
+      const img = new Image();
+      img.src = canvas3DImage;
+      await new Promise((resolve) => {
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, canvas2D.width, canvas2D.height);
+          resolve();
+        };
+      });
+  
+      // Step 4: Convert to Image and Share
+      const image = combinedCanvas.toDataURL("image/png");
+  
+      const blob = await (await fetch(image)).blob();
+      const file = new File([blob], "screenshot.png", { type: "image/png" });
+  
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: "Check this out!",
+          text: "Sharing my screen capture!",
+        });
+      } else {
+        alert("Sharing not supported on this device.");
+      }
+    } catch (error) {
+      console.error("Error capturing or sharing image:", error);
+      alert("An error occurred while capturing or sharing the image.");
     }
   };
+  
 
   useEffect(() => {
     fetchData();
@@ -296,7 +326,7 @@ const Stats = ({ viewingStats }) => {
 
   return (
     <div
-      className="w-screen h-screen flex flex-col absolute bg-black "
+      className="w-screen h-screen flex flex-col absolute bg-black"
       ref={pageRef}
     >
       <video
@@ -304,13 +334,13 @@ const Stats = ({ viewingStats }) => {
         autoPlay
         loop
         muted
-        className="w-screen h-screen object-cover "
+        className="w-screen h-screen object-cover"
       />
-      <div className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80 ">
+      <div className="absolute flex top-0 bottom-0 items-center left-[170px] opacity-80">
         <img src="/japanese.png" alt="" className="w-[30vw]" id="japanese" />
       </div>
       <div
-        className="font-thaust text-white absolute text-[150px] flex items-center bottom-0 top-0 left-40 opacity-85  translate-y-[-50px] "
+        className="font-thaust text-white absolute text-[150px] flex items-center bottom-0 top-0 left-40 opacity-85 translate-y-[-50px]"
         id="username"
       >
         {username}
@@ -319,7 +349,7 @@ const Stats = ({ viewingStats }) => {
         className="absolute flex items-center bottom-0 top-0 left-[170px] opacity-85"
         id="teamname"
       >
-        <p className="font-team text-white text-[75px]  translate-y-[70px] ">
+        <p className="font-team text-white text-[75px] translate-y-[70px]">
           {teamName}
         </p>
       </div>
@@ -334,7 +364,7 @@ const Stats = ({ viewingStats }) => {
         />
       ) : null}
       <div
-        className="flex  absolute bottom-[25px] left-[50px] z-20 "
+        className="flex absolute bottom-[25px] left-[50px] z-20"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         ref={scrollRef}
@@ -392,7 +422,7 @@ const Stats = ({ viewingStats }) => {
         </div>
       </div>
       <div
-        className="flex  absolute h-screen justify-evenly items-center top-0 bottom-0 right-7 opacity-80 z-50"
+        className="flex absolute h-screen justify-evenly items-center top-0 bottom-0 right-7 opacity-80 z-50"
         id="icons"
       >
         <div className="flex flex-col h-[25vh] justify-evenly items-center">
@@ -405,7 +435,7 @@ const Stats = ({ viewingStats }) => {
           <img
             src="/web.png"
             alt=""
-            className="w-[18px]  h-[18px]"
+            className="w-[18px] h-[18px]"
             onClick={() => {
               window.open("https://www.mlsc.tech/");
             }}
@@ -436,7 +466,7 @@ const Stats = ({ viewingStats }) => {
         className="flex absolute bottom-[25px] left-0 right-0 justify-center"
         id="lorem"
       >
-        <p className=" text-[#b3b3b3] flex justify-center font-thin text-[8px] w-[35vw] text-center">
+        <p className="text-[#b3b3b3] flex justify-center font-thin text-[8px] w-[35vw] text-center">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum
           placeat voluptatem, quasi dolorum reprehenderit consequatur ad
           provident error dolore maiores commodi mollitia cupiditate. Libero hic
