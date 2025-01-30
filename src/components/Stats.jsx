@@ -36,15 +36,20 @@ const Stats = ({ viewingStats, stats, game }) => {
             backgroundPosition: "center",
           }}
         >
-          <h1 className=" translate-y-[113px] -translate-x-6 text-xl font-bold self-start w-[500px] text-center">{game}</h1>
+          <h1 className=" translate-y-[113px] -translate-x-6 text-xl font-bold self-start w-[500px] text-center">
+            {stats[game].title}
+          </h1>
           <div className="flex flex-col w-full h-full justify-center items-center">
-            {Object.keys(stats[game]).map((key) => (
-              <div key={key} className="w-full text-center">
-                <p className="text-lg">
-                  {stats[game][key].title}: {stats[game][key].value}
-                </p>
-              </div>
-            ))}
+            {Object.keys(stats[game]).map((key) => {
+              if (key === "title") return null;
+              return (
+                <div key={key} className="w-full text-center">
+                  <p className="text-lg">
+                    {stats[game][key].title}: {stats[game][key].value}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
