@@ -35,7 +35,7 @@ const Username = ({username}) => {
         id="name"
         style={{ width: "0px" }}
       >
-        <p className="translate-y-[1.5px] opacity-0">{username}</p>
+        <p className="translate-y-[1.5px] opacity-0 uppercase">{username}</p>
       </div>
     </div>
   );

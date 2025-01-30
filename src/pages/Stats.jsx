@@ -210,6 +210,7 @@ const Stats = ({ viewingStats }) => {
     usernameTl.to("#username", {
       y: "-36vh",
       duration: 0.5,
+      opacity: 0,
       ease: "power3.out",
     });
 
@@ -223,7 +224,7 @@ const Stats = ({ viewingStats }) => {
     const teamnameTl = gsap.timeline();
 
     teamnameTl.to("#teamname", {
-      y: "-33vh",
+      y: "-37vh",
       duration: 0.5,
       delay: 0.13,
       ease: "power3.out",
@@ -297,6 +298,7 @@ const Stats = ({ viewingStats }) => {
 
     usernameTl.to("#username", {
       x: 0,
+      opacity: 1,
       duration: 0.5,
       delay: 0.13,
       scale: 1,

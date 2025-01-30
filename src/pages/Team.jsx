@@ -36,7 +36,6 @@ const Team = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col absolute bg-black">
-  
       <video
         src="/back.mp4"
         autoPlay
@@ -45,47 +44,47 @@ const Team = () => {
         className="w-screen h-screen object-cover"
       />
       <div
-        className="font-thaust text-white absolute text-[160px] flex items-center justify-center top-[90px] left-0 right-0 opacity-85  translate-y-[-50px]"
+        className="font-thaust text-white absolute w-[100vw] h-[40vh] flex items-center justify-center top-[90px] left-0 right-0 opacity-85 translate-y-[-50px] text-[7vw] leading-none aspect-[2/1]"
         id="username"
       >
         {teamName}
       </div>
-      {member1.avatar && (
+      {member1 && member1.avatar && (
         <AvatarCanvas
           key={"user1"}
           viewingStats={false}
-          animationUrl={"/dancee.fbx"}
+          animationUrl={"/fight.fbx"}
           cameraDistance={2.4}
           avatarXPosition={2.4}
           avatarYPosition={-0.9}
           modelUrl={member1.avatar}
         />
       )}
-      {member2.avatar && (
+      {member2 && member2.avatar && (
         <AvatarCanvas
           viewingStats={false}
           key={"user2"}
-          animationUrl={"/drunk.fbx"}
+          animationUrl={"/team2.fbx"}
           cameraDistance={2.4}
           avatarXPosition={0.8}
           avatarYPosition={-0.9}
           modelUrl={member2.avatar}
         />
       )}
-      {member3.avatar && (
+      {member3 && member3.avatar && (
         <AvatarCanvas
           viewingStats={false}
-          animationUrl={"/anim.fbx"}
+          animationUrl={"/team3.fbx"}
           cameraDistance={2.4}
           avatarXPosition={-0.8}
           avatarYPosition={-0.9}
           modelUrl={member3.avatar}
         />
       )}
-      {member4.avatar && (
+      {member4 && member4.avatar && (
         <AvatarCanvas
           viewingStats={false}
-          animationUrl={"/anim.fbx"}
+          animationUrl={"/team4.fbx"}
           cameraDistance={2.4}
           avatarXPosition={-2.4}
           avatarYPosition={-0.9}
@@ -96,18 +95,26 @@ const Team = () => {
         className="absolute w-screen flex bottom-[65px] h-20 justify-center items-center"
         id="usernames"
       >
-        <div className="absolute left-[10vw]">
-          <Username username={member4.username}/>
-        </div>
-        <div className="absolute left-[32vw] translate-y-2">
-          <Username username={member3.username}/>
-        </div>
-        <div className="absolute right-[10vw] translate-y-2">
-          <Username username={member1.username}/>
-        </div>
-        <div className="absolute right-[32vw]">
-          <Username username={member2.username}/>
-        </div>
+        {member4 && (
+          <div className="absolute left-[10vw]">
+            <Username username={member4.username} />
+          </div>
+        )}
+        {member3 && (
+          <div className="absolute left-[32vw] translate-y-2">
+            <Username username={member3.username} />
+          </div>
+        )}
+        {member1 && (
+          <div className="absolute right-[10vw] translate-y-2">
+            <Username username={member1.username} />
+          </div>
+        )}
+        {member2 && (
+          <div className="absolute right-[32vw]">
+            <Username username={member2.username} />
+          </div>
+        )}
       </div>
       <div className="flex absolute bottom-[25px] left-[50px] z-30">
         <div id="emote" className="hidden -z-50">
