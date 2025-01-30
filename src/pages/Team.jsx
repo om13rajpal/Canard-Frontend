@@ -44,8 +44,8 @@ const Team = () => {
         className="w-screen h-screen object-cover"
       />
       <div
-className="font-thaust text-white absolute w-[100vw] h-[40vh] flex items-center justify-center top-[90px] left-0 right-0 opacity-85 translate-y-[-50px] text-[7vw] leading-none aspect-[2/1]"
-id="username"
+        className="font-thaust text-white absolute w-[100vw] h-[40vh] flex items-center justify-center top-[90px] left-0 right-0 opacity-85 translate-y-[-50px] text-[7vw] leading-none aspect-[2/1]"
+        id="username"
       >
         {teamName}
       </div>

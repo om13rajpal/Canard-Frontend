@@ -9,7 +9,6 @@ export function Avatar(props) {
     useGLTF.preload(props.modelUrl);
   }, [props.modelUrl]);
 
-
   const { scene, error } = useGLTF(props.modelUrl);
 
   if (error) {
@@ -60,6 +59,20 @@ export function Avatar(props) {
           skeleton={nodes.Wolf3D_Glasses.skeleton}
         />
       )}
+      {nodes.Wolf3D_Facewear && materials.Wolf3D_Facewear && (
+        <skinnedMesh
+          geometry={nodes.Wolf3D_Facewear.geometry}
+          material={materials.Wolf3D_Facewear}
+          skeleton={nodes.Wolf3D_Facewear.skeleton}
+        />
+      )}
+      {nodes.Wolf3D_Headwear && materials.Wolf3D_Headwear && (
+        <skinnedMesh
+          geometry={nodes.Wolf3D_Headwear.geometry}
+          material={materials.Wolf3D_Headwear}
+          skeleton={nodes.Wolf3D_Headwear.skeleton}
+        />
+      )}
       {nodes.Wolf3D_Outfit_Top && materials.Wolf3D_Outfit_Top && (
         <skinnedMesh
           geometry={nodes.Wolf3D_Outfit_Top.geometry}
@@ -88,26 +101,6 @@ export function Avatar(props) {
           skeleton={nodes.Wolf3D_Body.skeleton}
         />
       )}
-      {nodes.EyeLeft && materials.Wolf3D_Eye && (
-        <skinnedMesh
-          name="EyeLeft"
-          geometry={nodes.EyeLeft.geometry}
-          material={materials.Wolf3D_Eye}
-          skeleton={nodes.EyeLeft.skeleton}
-          morphTargetDictionary={nodes.EyeLeft.morphTargetDictionary}
-          morphTargetInfluences={nodes.EyeLeft.morphTargetInfluences}
-        />
-      )}
-      {nodes.EyeRight && materials.Wolf3D_Eye && (
-        <skinnedMesh
-          name="EyeRight"
-          geometry={nodes.EyeRight.geometry}
-          material={materials.Wolf3D_Eye}
-          skeleton={nodes.EyeRight.skeleton}
-          morphTargetDictionary={nodes.EyeRight.morphTargetDictionary}
-          morphTargetInfluences={nodes.EyeRight.morphTargetInfluences}
-        />
-      )}
       {nodes.Wolf3D_Head && materials.Wolf3D_Skin && (
         <skinnedMesh
           name="Wolf3D_Head"
@@ -126,6 +119,36 @@ export function Avatar(props) {
           skeleton={nodes.Wolf3D_Teeth.skeleton}
           morphTargetDictionary={nodes.Wolf3D_Teeth.morphTargetDictionary}
           morphTargetInfluences={nodes.Wolf3D_Teeth.morphTargetInfluences}
+        />
+      )}
+      {nodes.Wolf3D_Beard && materials.Wolf3D_Beard && (
+        <skinnedMesh
+          name="Wolf3D_Beard"
+          geometry={nodes.Wolf3D_Beard.geometry}
+          material={materials.Wolf3D_Beard}
+          skeleton={nodes.Wolf3D_Beard.skeleton}
+          morphTargetDictionary={nodes.Wolf3D_Beard.morphTargetDictionary}
+          morphTargetInfluences={nodes.Wolf3D_Beard.morphTargetInfluences}
+        />
+      )}
+      {nodes.EyeLeft && materials.Wolf3D_Eye && (
+        <skinnedMesh
+          name="EyeLeft"
+          geometry={nodes.EyeLeft.geometry}
+          material={materials.Wolf3D_Eye}
+          skeleton={nodes.EyeLeft.skeleton}
+          morphTargetDictionary={nodes.EyeLeft.morphTargetDictionary}
+          morphTargetInfluences={nodes.EyeLeft.morphTargetInfluences}
+        />
+      )}
+      {nodes.EyeRight && materials.Wolf3D_Eye && (
+        <skinnedMesh
+          name="EyeRight"
+          geometry={nodes.EyeRight.geometry}
+          material={materials.Wolf3D_Eye}
+          skeleton={nodes.EyeRight.skeleton}
+          morphTargetDictionary={nodes.EyeRight.morphTargetDictionary}
+          morphTargetInfluences={nodes.EyeRight.morphTargetInfluences}
         />
       )}
     </group>
