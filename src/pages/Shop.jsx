@@ -19,64 +19,64 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   const powerUps = [
     {
       name: "TIME DECREE I",
-      price: 200,
+      price: 1249,
       description: "Add or decrease 2 minutes from your time",
       image: "/powerup/1",
     },
     {
       name: "TIME DECREE II",
-      price: 300,
+      price: 2499,
       description: "Add or decrease 4 minutes from your time",
       image: "/powerup/2",
     },
     {
       name: "FORCED FATE",
-      price: 400,
+      price: 3499,
       description:
         "Any other team will have to perform a minor task once again",
       image: "/powerup/3",
     },
     {
       name: "BREACH'EM",
-      price: 250,
+      price: 999,
       description: "View any team's progress",
       image: "/powerup/4",
     },
     {
       name: "WHITE FLAG",
-      price: 350,
+      price: 4499,
       description:
         "Skip a major task and mark it completed with a fixed time of 5 minutes",
       image: "/powerup/5",
     },
     {
       name: "REVERSE ASPIRIN I",
-      price: 450,
+      price: 1499,
       description:
         "Skip a minor task but reduce HP of left hand and right hand",
       image: "/powerup/6",
     },
     {
       name: "REVERSE ASPIRIN II",
-      price: 500,
+      price: 699,
       description: "Decrease the HP of left hand and right hand by 100",
       image: "/powerup/7",
     },
     {
       name: "MYSTERIO",
-      price: 600,
+      price: 2999,
       description: "Gain a random power-up",
       image: "/powerup/8",
     },
     {
       name: "GOBLIN",
-      price: 700,
+      price: 3999,
       description: "Steal any other team's power-up",
       image: "/powerup/9",
     },
     {
-      name: "POWER UP 10",
-      price: 800,
+      name: "WHITER FLAG",
+      price: 5299,
       description: "Grants unlimited ammo for 15 seconds",
       image: "/powerup/10",
     },
