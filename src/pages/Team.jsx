@@ -96,16 +96,16 @@ const Team = () => {
         className="absolute w-screen flex bottom-[65px] h-20 justify-center items-center"
         id="usernames"
       >
-        <div className="absolute left-[170px]">
+        <div className="absolute left-[10vw]">
           <Username username={member4.username}/>
         </div>
-        <div className="absolute left-[500px] translate-y-2">
+        <div className="absolute left-[32vw] translate-y-2">
           <Username username={member3.username}/>
         </div>
-        <div className="absolute right-[170px] translate-y-2">
+        <div className="absolute right-[10vw] translate-y-2">
           <Username username={member1.username}/>
         </div>
-        <div className="absolute right-[500px]">
+        <div className="absolute right-[32vw]">
           <Username username={member2.username}/>
         </div>
       </div>

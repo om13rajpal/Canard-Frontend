@@ -6,6 +6,8 @@ const Games = ({ stats }) => {
   const [viewingStats, setViewingStats] = useState(false);
   const [game, setGame] = useState("bgmi");
   function handleMouseEnter(game) {
+    console.log(stats);
+
     // Pause the animations for all items
     const items = document.querySelectorAll(".item");
     items.forEach((item) => item.classList.add("paused"));
@@ -53,7 +55,7 @@ const Games = ({ stats }) => {
   return (
     <div className="absolute bottom-[80px] right-0 left-0 top-0">
       <Stats viewingStats={viewingStats} stats={stats} game={game} />
-      <div className="wrapper translate-y-[65vh]" >
+      <div className="wrapper translate-y-[65vh]">
         <img
           className="item item1 opacity-80"
           src="/games/fortnite.png"
@@ -120,9 +122,9 @@ const Games = ({ stats }) => {
         <img
           className="item item10 opacity-80"
           src="/games/mario.png"
-          id="mario"
-          onMouseEnter={() => handleMouseEnter("mario")}
-          onMouseLeave={() => handleMouseLeave("mario")}
+          id="superMario"
+          onMouseEnter={() => handleMouseEnter("superMario")}
+          onMouseLeave={() => handleMouseLeave("superMario")}
         />
         <img
           className="item item11 opacity-80"
@@ -134,16 +136,16 @@ const Games = ({ stats }) => {
         <img
           className="item item12 opacity-80"
           src="/games/nerf.png"
-          id="nerf"
-          onMouseEnter={() => handleMouseEnter("nerf")}
-          onMouseLeave={() => handleMouseLeave("nerf")}
+          id="shootWithAGun"
+          onMouseEnter={() => handleMouseEnter("shootWithAGun")}
+          onMouseLeave={() => handleMouseLeave("shootWithAGun")}
         />
         <img
           className="item item13 opacity-80"
           src="/games/clash royale.png"
-          id="clash royale"
-          onMouseEnter={() => handleMouseEnter("clash royale")}
-          onMouseLeave={() => handleMouseLeave("clash royale")}
+          id="clashRoyale"
+          onMouseEnter={() => handleMouseEnter("clashRoyale")}
+          onMouseLeave={() => handleMouseLeave("clashRoyale")}
         />
         <img
           className="item item14 opacity-80"
