@@ -340,7 +340,7 @@ const Stats = ({ viewingStats }) => {
         <img src="/japanese.png" alt="" className="w-[30vw]" id="japanese" />
       </div>
       <div
-        className="font-thaust text-white absolute text-[150px] flex items-center bottom-0 top-0 left-40 opacity-85 translate-y-[-50px]"
+        className="font-thaust text-white absolute text-[8.5vw] flex items-center bottom-0 top-0 left-40 opacity-85 translate-y-[-50px]"
         id="username"
       >
         {username}

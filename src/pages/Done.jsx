@@ -6,7 +6,7 @@ const Done = ({ targetText }) => {
 
   useEffect(() => {
     const element = textRef.current;
-    const totalDuration = 2;
+    const totalDuration = 1.2;
     const frameRate = 120;
     const totalFrames = totalDuration * frameRate;
     let frame = 0;
