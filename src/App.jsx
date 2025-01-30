@@ -68,7 +68,7 @@ const App = () => {
     const adminToken = localStorage.getItem("admin_token");
     if (
       (!adminToken || adminToken === undefined) &&
-      location.pathname === "/register"
+      (location.pathname === "/register" || location.pathname === "/addMembers")
     ) {
       navigate("/adminLogin");
     }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import MemberDiv from "../components/Memberdiv";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";

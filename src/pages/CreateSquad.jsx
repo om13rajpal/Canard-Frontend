@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginNavbar from "../components/LoginNavbar";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 
 export default function CreateSquad() {
   const [squadName, setSquadName] = useState("");
