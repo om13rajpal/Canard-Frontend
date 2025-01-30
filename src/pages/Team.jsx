@@ -53,7 +53,7 @@ const Team = () => {
         <AvatarCanvas
           key={"user1"}
           viewingStats={false}
-          animationUrl={"/dancee.fbx"}
+          animationUrl={"/fight.fbx"}
           cameraDistance={2.4}
           avatarXPosition={2.4}
           avatarYPosition={-0.9}
@@ -64,7 +64,7 @@ const Team = () => {
         <AvatarCanvas
           viewingStats={false}
           key={"user2"}
-          animationUrl={"/drunk.fbx"}
+          animationUrl={"/team2.fbx"}
           cameraDistance={2.4}
           avatarXPosition={0.8}
           avatarYPosition={-0.9}
@@ -74,7 +74,7 @@ const Team = () => {
       {member3 && member3.avatar && (
         <AvatarCanvas
           viewingStats={false}
-          animationUrl={"/anim.fbx"}
+          animationUrl={"/team3.fbx"}
           cameraDistance={2.4}
           avatarXPosition={-0.8}
           avatarYPosition={-0.9}
@@ -84,7 +84,7 @@ const Team = () => {
       {member4 && member4.avatar && (
         <AvatarCanvas
           viewingStats={false}
-          animationUrl={"/anim.fbx"}
+          animationUrl={"/team4.fbx"}
           cameraDistance={2.4}
           avatarXPosition={-2.4}
           avatarYPosition={-0.9}
