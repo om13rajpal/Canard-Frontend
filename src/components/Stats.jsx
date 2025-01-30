@@ -41,7 +41,7 @@ const Stats = ({ viewingStats, stats, game }) => {
           </h1>
           <div className="flex flex-col w-full h-full justify-center items-center">
             {Object.keys(stats[game]).map((key) => {
-              if (key === "title") return null;
+              if (key === "title" || key === "creditsGiven") return null;
               return (
                 <div key={key} className="w-full text-center">
                   <p className="text-lg">
