@@ -6,8 +6,6 @@ import gsap from "gsap";
 import Games from "../components/Games";
 import html2canvas from "html2canvas";
 import axios from "axios";
-import Navbar from "../components/Navbar";
-
 const Stats = ({ viewingStats }) => {
   const [animationUrl, setAnimationUrl] = useState("/dancee.fbx");
   const [username, setUserName] = useState("");

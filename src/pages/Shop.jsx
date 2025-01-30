@@ -10,11 +10,12 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   const [boughtItems, setBoughtItems] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const [added, setAdded] = useState("ADD TO CART");
+  const [addedItems, setAddedItems] = useState([]);
 
   const token = localStorage.getItem("token");
   const teamId = localStorage.getItem("teamId");
 
-  
   const powerUps = [
     {
       name: "TIME DECREE I",
@@ -31,7 +32,8 @@ const Shop = ({ viewingCart, setViewingcart }) => {
     {
       name: "FORCED FATE",
       price: 400,
-      description: "Any other team will have to perform a minor task once again",
+      description:
+        "Any other team will have to perform a minor task once again",
       image: "/powerup/3",
     },
     {
@@ -43,13 +45,15 @@ const Shop = ({ viewingCart, setViewingcart }) => {
     {
       name: "WHITE FLAG",
       price: 350,
-      description: "Skip a major task and mark it completed with a fixed time of 5 minutes",
+      description:
+        "Skip a major task and mark it completed with a fixed time of 5 minutes",
       image: "/powerup/5",
     },
     {
       name: "REVERSE ASPIRIN I",
       price: 450,
-      description: "Skip a minor task but reduce HP of left hand and right hand",
+      description:
+        "Skip a minor task but reduce HP of left hand and right hand",
       image: "/powerup/6",
     },
     {
@@ -76,83 +80,93 @@ const Shop = ({ viewingCart, setViewingcart }) => {
       description: "Grants unlimited ammo for 15 seconds",
       image: "/powerup/10",
     },
-  ];  
-  
-  const fetchPowerups=async()=>{
-    try{
-      const res=await axios.get(`https://api.mlsc.tech/team/${teamId}`,{
-        headers:{
+  ];
+
+  const fetchPowerups = async () => {
+    try {
+      const res = await axios.get(`https://api.mlsc.tech/team/${teamId}`, {
+        headers: {
           Authorization: `Bearer ${token}`,
-        }
-      })
-      const boughtPowerups =res.data.data.team.powerups;
-      const boughtItems = boughtPowerups.map((powerup)=>powerUps[powerup-1].name);
+        },
+      });
+      const boughtPowerups = res.data.data.team.powerups;
+      const boughtItems = boughtPowerups.map(
+        (powerup) => powerUps[powerup - 1].name
+      );
       setBoughtItems(boughtItems);
-    }catch(error){
+    } catch (error) {
       console.error("Error fetching powerups:", error);
     }
-  }
-  useEffect(()=>{
+  };
+  useEffect(() => {
     fetchPowerups();
-  },[]);
+  }, []);
   const handleAddToCart = (powerUp) => {
     if (boughtItems.includes(powerUp.name)) {
-      setPopupMessage(`${powerUp.name.toUpperCase()} HAS ALREADY BEEN PURCHASED!`);
+      setPopupMessage(
+        `${powerUp.name.toUpperCase()} HAS ALREADY BEEN PURCHASED!`
+      );
       setShowPopup(true);
       setTimeout(() => setShowPopup(false), 2000);
       return;
     }
+
+    setAddedItems((prevState) => ({
+      ...prevState,
+      [powerUp.name]: "ADDED TO CART", // Mark this specific power-up as added
+    }));
     if (!cart.find((item) => item.name === powerUp.name)) {
+      setPopupMessage(`${powerUp.name.toUpperCase()} ADDED TO CART!`);
+      setShowPopup(true);
       setCart((prev) => [...prev, powerUp]);
     }
   };
 
-  const handleBuy = async() => {
-    const boughtItems = cart.map((item) => powerUps.findIndex((powerUp) => powerUp.name === item.name)+1);
-    
-    try {
-      const res=await axios.patch(`https://api.mlsc.tech/team/${teamId}/powerups`,{
-        powerups: boughtItems,
-        creditCardNo: creditCard,
-      } ,{
-        headers:{
-          Authorization: `Bearer ${token}`,
-        }
-      })
+  const handleBuy = async () => {
+    const boughtItems = cart.map(
+      (item) => powerUps.findIndex((powerUp) => powerUp.name === item.name) + 1
+    );
 
-        const totalCost = cart.reduce((acc, item) => acc + item.price, 0);
-        
-        if (totalCost <= currencyLeft) {
-          setCurrencyLeft((prev) => prev - totalCost);
-          setBoughtItems((prev) => [...prev, ...cart.map((item) => item.name)]);
-          setCart([]);
+    try {
+      const res = await axios.patch(
+        `https://api.mlsc.tech/team/${teamId}/powerups`,
+        {
+          powerups: boughtItems,
+          creditCardNo: creditCard,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        
-        setCreditCard("");
-        setPopupMessage("PURCHASE SUCCESSFUL!");
-        setShowPopup(true);
-        
-      
+      );
+
+      const totalCost = cart.reduce((acc, item) => acc + item.price, 0);
+
+      if (totalCost <= currencyLeft) {
+        setCurrencyLeft((prev) => prev - totalCost);
+        setBoughtItems((prev) => [...prev, ...cart.map((item) => item.name)]);
+        setCart([]);
+      }
+
+      setCreditCard("");
+      setPopupMessage("PURCHASE SUCCESSFUL!");
+      setShowPopup(true);
     } catch (error) {
       setPopupMessage(error.response.data.message.toUpperCase());
       setShowPopup(true);
       console.error("Error buying items:", error);
-      
     }
-
-
-
   };
 
   useEffect(() => {
-
     gsap.to("#powerups", {
       y: 20,
       duration: 1,
       yoyo: true,
       ease: "power1.inOut",
       repeat: -1,
-    })
+    });
     if (viewingCart) {
       gsap.to("#cart", {
         x: 0,
@@ -166,7 +180,7 @@ const Shop = ({ viewingCart, setViewingcart }) => {
         duration: 0.5,
         ease: "power4.out",
         stagger: 0.2,
-      })
+      });
     } else {
       gsap.to("#cart", {
         x: 400,
@@ -189,7 +203,10 @@ const Shop = ({ viewingCart, setViewingcart }) => {
         />
 
         {/* PowerUps */}
-        <div className="w-[100vw] h-[100vh] absolute z-10 top-0 bottom-0 left-0 right-0 flex items-center justify-center" id="powerups">
+        <div
+          className="w-[100vw] h-[100vh] absolute z-10 top-0 bottom-0 left-0 right-0 flex items-center justify-center"
+          id="powerups"
+        >
           <div className="w-[80vw] h-[80vh] grid grid-cols-5 translate-y-12">
             {powerUps.map((powerUp, index) => (
               <div
@@ -226,9 +243,13 @@ const Shop = ({ viewingCart, setViewingcart }) => {
                     </h4>
                     <button
                       className="mt-2 bg-[#ffffffcf] text-black px-2 py-1 rounded hover:bg-[#3d6eff] transition font-sans text-[12px]"
-                      onClick={() => handleAddToCart(powerUp)}
+                      onClick={() => {
+                        handleAddToCart(powerUp);
+                      }}
                     >
-                      ADD TO CART
+                      {boughtItems.includes(powerUp.name) // Check if it's already bought
+                        ? "BOUGHT" // Show "BOUGHT" for already purchased items
+                        : addedItems[powerUp.name] || "ADD TO CART"}
                     </button>
                   </div>
                 </div>
@@ -252,14 +273,24 @@ const Shop = ({ viewingCart, setViewingcart }) => {
           {cart.map((item, index) => (
             <li key={index} className="my-5 px-4" id="items">
               <div className="flex justify-between items-center font-sans border-b-[1px] pb-3 opacity-70">
-                <img src={`${item.image}.jpg`} alt="" className="w-[30px] rounded-md"/>
+                <img
+                  src={`${item.image}.jpg`}
+                  alt=""
+                  className="w-[30px] rounded-md"
+                />
                 <h3 className="text-[14px]">{item.name}</h3>
                 <div className="flex gap-3 items-center">
-
-                <p className="text-[14px]">{item.price}m</p>
-                <img src={`/delete.png`} alt="" className="w-[15px] rounded-md opacity-70" onClick={()=>{
-                  setCart(cart.filter((cartItem) => cartItem.name !== item.name))
-                }}/>
+                  <p className="text-[14px]">{item.price}m</p>
+                  <img
+                    src={`/delete.png`}
+                    alt=""
+                    className="w-[15px] rounded-md opacity-70"
+                    onClick={() => {
+                      setCart(
+                        cart.filter((cartItem) => cartItem.name !== item.name)
+                      );
+                    }}
+                  />
                 </div>
               </div>
             </li>
@@ -294,7 +325,9 @@ const Shop = ({ viewingCart, setViewingcart }) => {
       {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-[#c0c0c0] p-10 rounded-lg shadow-lg text-center">
-            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">{popupMessage}</h3>
+            <h3 className="text-[16px] font-alien tracking-[2px] mb-4">
+              {popupMessage}
+            </h3>
             <button
               className="bg-black text-white px-4 py-[2px] rounded-md"
               onClick={() => setShowPopup(false)}
