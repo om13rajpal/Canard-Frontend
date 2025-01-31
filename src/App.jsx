@@ -95,7 +95,7 @@ const App = () => {
           setViewingStats={setViewingStats}
           viewingCart={viewingCart}
           viewingStats={viewingStats}
-          currentPath={location.pathname} // Passing the current path
+          currentPath={location.pathname}
         />
       )}
       
@@ -115,12 +115,12 @@ const App = () => {
           {/* <Route path="/addMembers" element={<AddMembers />} /> */}
           <Route path="/login" element={<Login />} />
           {/* <Route path="/adminLogin" element={<AdminLogin />} /> */}
-          {/* <Route
+          <Route
             path="/shop"
             element={
               <Shop viewingCart={viewingCart} setViewingcart={setViewingCart} />
             }
-          /> */}
+          />
           <Route path="*" element={<Done targetText={"SHOP IS CLOSED FOR NOW"} />} />
         </Routes>
       </Suspense>

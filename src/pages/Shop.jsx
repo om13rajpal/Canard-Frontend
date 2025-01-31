@@ -19,39 +19,39 @@ const Shop = ({ viewingCart, setViewingcart }) => {
   const powerUps = [
     {
       name: "TIME DECREE I",
-      price: 1249,
+      price: 949,
       description: "Add or decrease 2 minutes from your time",
       image: "/powerup/1",
     },
     {
       name: "TIME DECREE II",
-      price: 2499,
+      price: 1899,
       description: "Add or decrease 4 minutes from your time",
       image: "/powerup/2",
     },
     {
       name: "FORCED FATE",
-      price: 3499,
+      price: 2999,
       description:
         "Any other team will have to perform a minor task once again",
       image: "/powerup/3",
     },
     {
       name: "BREACH'EM",
-      price: 999,
+      price: 649,
       description: "View any team's progress",
       image: "/powerup/4",
     },
     {
       name: "WHITE FLAG",
-      price: 4499,
+      price: 3899,
       description:
-        "Skip a major task and mark it completed with a fixed time of 5 minutes",
+        "Skip a major task before starting it and mark it completed with a fixed time of 5 minutes",
       image: "/powerup/5",
     },
     {
       name: "REVERSE ASPIRIN I",
-      price: 1499,
+      price: 1299,
       description:
         "Skip a minor task but reduce HP of left hand and right hand",
       image: "/powerup/6",
@@ -76,8 +76,8 @@ const Shop = ({ viewingCart, setViewingcart }) => {
     },
     {
       name: "WHITER FLAG",
-      price: 5299,
-      description: "Grants unlimited ammo for 15 seconds",
+      price: 4999,
+      description: "Skip a major task anytime during the game and mark it completed with a fixed time of 5 minutes",
       image: "/powerup/10",
     },
   ];
