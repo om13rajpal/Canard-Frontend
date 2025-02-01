@@ -8,6 +8,7 @@ import CreateSquad from "./pages/CreateSquad";
 import AddMembers from "./pages/AddMembers";
 import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
+import LeaderBoard from "./pages/LeaderBoard";
 
 const CreateAvatar = lazy(() => import("./pages/CreateAvatar"));
 const Stats = lazy(() => import("./pages/Stats"));
@@ -84,11 +85,10 @@ const App = () => {
   if (loading) {
     return <Loading />;
   }
-  
 
   return (
     <div className="m-0 p-0 box-border bg-[#101010]">
-        {viewNavbar  && (
+      {viewNavbar && (
         <Navbar
           cardPage={cardPage}
           setViewingCart={setViewingCart}
@@ -98,7 +98,7 @@ const App = () => {
           currentPath={location.pathname}
         />
       )}
-      
+
       {viewNavbar && (
         <div className="w-screen h-[1px] bg-white absolute top-[65px] z-20 opacity-45"></div>
       )}
@@ -121,7 +121,11 @@ const App = () => {
               <Shop viewingCart={viewingCart} setViewingcart={setViewingCart} />
             }
           />
-          <Route path="*" element={<Done targetText={"SHOP IS CLOSED FOR NOW"} />} />
+          <Route path="/leaderboard" element={<LeaderBoard />} />
+          <Route
+            path="*"
+            element={<Done targetText={"SHOP IS CLOSED FOR NOW"} />}
+          />
         </Routes>
       </Suspense>
     </div>
