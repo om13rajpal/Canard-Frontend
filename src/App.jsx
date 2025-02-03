@@ -4,10 +4,7 @@ import Navbar from "./components/Navbar";
 import Loading from "./pages/Loading";
 import Done from "./pages/Done";
 import PageLoading from "./pages/PageLoading";
-import CreateSquad from "./pages/CreateSquad";
-import AddMembers from "./pages/AddMembers";
 import Login from "./pages/Login";
-import AdminLogin from "./pages/AdminLogin";
 import LeaderBoard from "./pages/LeaderBoard";
 
 const CreateAvatar = lazy(() => import("./pages/CreateAvatar"));
@@ -111,10 +108,10 @@ const App = () => {
             element={<Done targetText={"YOUR AVATAR HAS BEEN CREATED"} />}
           />
           <Route path="/team" element={<Team viewingStats={viewingStats} />} />
-          {/* <Route path="/register" element={<CreateSquad />} /> */}
-          {/* <Route path="/addMembers" element={<AddMembers />} /> */}
+          <Route path="/register" element={<CreateSquad />} />
+          <Route path="/addMembers" element={<AddMembers />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/adminLogin" element={<AdminLogin />} /> */}
+          <Route path="/adminLogin" element={<AdminLogin />} />
           <Route
             path="/shop"
             element={
