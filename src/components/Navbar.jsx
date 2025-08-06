@@ -10,7 +10,7 @@ const Navbar = ({
   setViewingCart,
   currentPath,
 }) => {
-  const [gif, setGif] = useState("");
+  const [gif, setGif] = useState("https://res.cloudinary.com/dvhwz7ptr/image/upload/v1730121242/lsobn7m28l5a1ndttymc.gif");
 
   useEffect(() => {
     gsap.to("#nav", {
@@ -44,7 +44,7 @@ const Navbar = ({
     return (
       <nav className="flex absolute z-30 w-full justify-between items-center px-[50px] top-3 translate-y-[-70px]">
         <img
-          src={gif ? gif : null}
+          src={"https://res.cloudinary.com/dvhwz7ptr/image/upload/v1730121242/lsobn7m28l5a1ndttymc.gif"}
           alt=""
           className="w-[75px] rounded-lg border-transparent object-cover"
           style={{

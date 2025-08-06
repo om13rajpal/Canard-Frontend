@@ -40,7 +40,7 @@ const AvatarCanvas = ({ viewingStats, animationUrl, cameraDistance, avatarXPosit
         rotation={[Math.PI / 2, Math.PI, Math.PI]}
         ref={group}
       >
-        <Avatar animationUrl={animationUrl} modelUrl={modelUrl}/>
+        <Avatar animationUrl={animationUrl} modelUrl={"https://models.readyplayer.me/68938dff7c6c17df660ee5ca.glb"}/>
       </group>
       <Environment files={"/hrdi.hdr"} />
     </Canvas>

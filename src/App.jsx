@@ -51,15 +51,15 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (
-      !token &&
-      location.pathname !== "/login" &&
-      location.pathname !== "/register" &&
-      location.pathname !== "/addMembers" &&
-      location.pathname !== "/adminLogin"
-    ) {
-      navigate("/login");
-    }
+    // if (
+    //   !token &&
+    //   location.pathname !== "/login" &&
+    //   location.pathname !== "/register" &&
+    //   location.pathname !== "/addMembers" &&
+    //   location.pathname !== "/adminLogin"
+    // ) {
+    //   navigate("/login");
+    // }
   }, [location.pathname, navigate]);
 
   useEffect(() => {
@@ -108,10 +108,10 @@ const App = () => {
             element={<Done targetText={"YOUR AVATAR HAS BEEN CREATED"} />}
           />
           <Route path="/team" element={<Team viewingStats={viewingStats} />} />
-          <Route path="/register" element={<CreateSquad />} />
-          <Route path="/addMembers" element={<AddMembers />} />
+          {/* <Route path="/register" element={<CreateSquad />} /> */}
+          {/* <Route path="/addMembers" element={<AddMembers />} /> */}
           <Route path="/login" element={<Login />} />
-          <Route path="/adminLogin" element={<AdminLogin />} />
+          {/* <Route path="/adminLogin" element={<AdminLogin />} /> */}
           <Route
             path="/shop"
             element={

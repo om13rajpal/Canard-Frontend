@@ -360,7 +360,7 @@ const Stats = ({ viewingStats }) => {
           cameraDistance={2}
           avatarXPosition={1.4}
           avatarYPosition={-1}
-          modelUrl={avatarUrl}
+          modelUrl={"https://models.readyplayer.me/68938dff7c6c17df660ee5ca.glb"}
         />
       ) : null}
       <div

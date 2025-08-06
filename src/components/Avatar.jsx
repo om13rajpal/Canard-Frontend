@@ -5,11 +5,7 @@ import { SkeletonUtils } from "three-stdlib";
 
 export function Avatar(props) {
   const group = useRef();
-  useEffect(() => {
-    useGLTF.preload(props.modelUrl);
-  }, [props.modelUrl]);
-
-  const { scene, error } = useGLTF(props.modelUrl);
+  const { scene, error } = useGLTF("https://models.readyplayer.me/68938dff7c6c17df660ee5ca.glb");
 
   if (error) {
     console.error("Error loading model:", error);
